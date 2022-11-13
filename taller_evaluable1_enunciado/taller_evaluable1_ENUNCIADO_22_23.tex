@@ -138,13 +138,13 @@ Rellenad estos datos:
 \begin{itemize}
 \tightlist
 \item
-  Apellidos, Nombre Alumno
+  Florit Ensenyat, Jordi
 \item
-  Apellidos, Nombre Alumno
+  Ferrer Fernández, Marc
 \item
-  Apellidos, Nombre Alumno
+  Girón Rodríguez, Pau
 \item
-  Apellidos, Nombre Alumno
+  Fornés Reynés, Josep Gabriel
 \end{itemize}
 
 \hypertarget{carga-de-datos}{%
@@ -205,30 +205,47 @@ jugadores de estas selecciones.
 \begin{Highlighting}[]
 \NormalTok{fifa23\_eur }\OtherTok{=}\NormalTok{ datos[datos}\SpecialCharTok{$}\NormalTok{NationalTeam }\SpecialCharTok{\%in\%}\NormalTok{ eur,]}
 \NormalTok{fifa23\_eur}\SpecialCharTok{$}\NormalTok{NationalTeam }\OtherTok{=} \FunctionTok{droplevels}\NormalTok{(fifa23\_eur}\SpecialCharTok{$}\NormalTok{NationalTeam)}
-\NormalTok{fifa23\_eur}\SpecialCharTok{$}\NormalTok{NationalTeam}
+\FunctionTok{unique}\NormalTok{(fifa23\_eur}\SpecialCharTok{$}\NormalTok{Name)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##   [1] France   France   Germany  Portugal England  Germany  France   Portugal
-##   [9] Italy    Portugal Portugal Germany  Germany  Spain    France   Germany 
-##  [17] Spain    Italy    France   Germany  Italy    England  Germany  Portugal
-##  [25] Spain    France   Italy    France   Germany  Germany  Germany  England 
-##  [33] Spain    Spain    France   Italy    Spain    Spain    England  France  
-##  [41] Portugal Germany  France   Spain    Italy    England  Spain    France  
-##  [49] France   Italy    England  Italy    England  Italy    Portugal France  
-##  [57] Germany  England  Italy    Germany  Portugal England  England  England 
-##  [65] Spain    Italy    Spain    Portugal France   Spain    Spain    Spain   
-##  [73] England  France   England  Spain    Italy    Italy    Germany  Portugal
-##  [81] Germany  Germany  Spain    Portugal Portugal England  Germany  England 
-##  [89] Spain    France   Spain    England  England  Portugal England  Portugal
-##  [97] Spain    France   Italy    Portugal Italy    Germany  France   Germany 
-## [105] Spain    England  Portugal England  Portugal Portugal Germany  England 
-## [113] France   Portugal France   France   Portugal Spain    Portugal Germany 
-## [121] Italy    Italy    France   England  Portugal Italy    France   Portugal
-## [129] England  Italy    Italy    Italy    Germany  Italy    Spain    Spain   
-## [137] Italy    Germany 
-## Levels: England France Germany Italy Portugal Spain
+##   [1] K. Benzema        K. Mbappé         M. Neuer          Cristiano Ronaldo
+##   [5] H. Kane           J. Kimmich        N. Kanté          Rúben Dias       
+##   [9] G. Donnarumma     Bernardo Silva    João Cancelo      M. ter Stegen    
+##  [13] A. Rüdiger        Rodri             H. Lloris         T. Müller        
+##  [17] De Gea            M. Verratti       M. Maignan        L. Goretzka      
+##  [21] C. Immobile       R. Sterling       K. Trapp          Bruno Fernandes  
+##  [25] A. Laporte        K. Coman          N. Barella        C. Nkunku        
+##  [29] N. Süle           S. Gnabry         İ. Gündoğan       K. Walker        
+##  [33] Jordi Alba        Sergio Busquets   P. Pogba          Jorginho         
+##  [37] Gerard Moreno     Pedri             P. Foden          T. Hernández     
+##  [41] Diogo Jota        M. Reus           L. Hernández      Sergio Ramos     
+##  [45] D. Berardi        J. Grealish       Carvajal          R. Varane        
+##  [49] W. Ben Yedder     L. Insigne        K. Trippier       L. Bonucci       
+##  [53] J. Bellingham     F. Chiesa         Rafael Leão       J. Koundé        
+##  [57] L. Sané           R. James          A. Bastoni        K. Havertz       
+##  [61] João Félix        D. Rice           M. Mount          J. Sancho        
+##  [65] Oyarzabal         L. Pellegrini     Marcos Llorente   Rúben Neves      
+##  [69] P. Kimpembe       Unai Simón        Carlos Soler      Pau Torres       
+##  [73] J. Henderson      A. Griezmann      J. Stones         Koke             
+##  [77] G. Di Lorenzo     M. Locatelli      R. Gosens         Gonçalo Guedes   
+##  [81] J. Brandt         T. Werner         Gayà              Otávio           
+##  [85] R. Guerreiro      T. Abraham        N. Schlotterbeck  B. Saka          
+##  [89] Dani Olmo         A. Tchouaméni     Ferran Torres     A. Ramsdale      
+##  [93] B. Chilwell       André Silva       J. Pickford       Rui Patrício     
+##  [97] Azpilicueta       L. Digne          L. Spinazzola     A. Lopes         
+## [101] F. Acerbi         D. Raum           A. Areola         J. Musiala       
+## [105] Pablo Sarabia     H. Maguire        Palhinha          N. Pope          
+## [109] João Moutinho     Pepe              J. Hofmann        K. Phillips      
+## [113] M. Guendouzi      Nuno Mendes       W. Saliba         J. Clauss        
+## [117] Danilo Pereira    Morata            José Fonte        L. Klostermann   
+## [121] B. Cristante      A. Belotti        A. Rabiot         C. Gallagher     
+## [125] Matheus Nunes     G. Raspadori      B. Pavard         Diogo Costa      
+## [129] C. Coady          A. Florenzi       M. Kean           A. Meret         
+## [133] L. Nmecha         S. Sirigu         Eric García       Robert Sánchez   
+## [137] Emerson           T. Kehrer        
+## 17530 Levels: A. Abaz A. Abdallah A. Abdennour A. Abdi A. Abdijanovic ... Zubimendi
 \end{verbatim}
 
 \hypertarget{pregunta-2}{%
@@ -240,6 +257,9 @@ nacional cada equipo del data frame \texttt{fifa23\_eur}.
 Calcular la media y la desviación típica EN MILES de euros del valor de
 cada jugador \texttt{ValueEUR} de cada selección nacional del frame
 \texttt{fifa23\_eur} por posición en el campo delantera media y defensa.
+
+\hypertarget{solucion-2}{%
+\subsubsection{Solucion 2}\label{solucion-2}}
 
 \hypertarget{pregunta-3}{%
 \subsection{Pregunta 3}\label{pregunta-3}}
@@ -311,5 +331,70 @@ score \texttt{overall} para TODOS los jugadores de las 6 selecciones de
 europa y TODOS los jugadores de las seis selecciones de América.
 Dibujando un histograma con la función \emph{kernel} en un solo gráfico.
 Comentar los resultados.
+
+\hypertarget{soluciuxf3n}{%
+\subsubsection{Solución}\label{soluciuxf3n}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fifa23\_ame}\OtherTok{=}\NormalTok{datos[datos}\SpecialCharTok{$}\NormalTok{NationalTeam }\SpecialCharTok{\%in\%}\NormalTok{ ame,]}
+\NormalTok{fifa23\_ame}\SpecialCharTok{$}\NormalTok{NationalTeam }\OtherTok{=} \FunctionTok{droplevels}\NormalTok{(fifa23\_ame}\SpecialCharTok{$}\NormalTok{NationalTeam)}
+\FunctionTok{unique}\NormalTok{(fifa23\_ame}\SpecialCharTok{$}\NormalTok{NationalTeam)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] Argentina     Canada        Brazil        Mexico        United States
+## Levels: Argentina Brazil Canada Mexico United States
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\FunctionTok{density}\NormalTok{(fifa23\_eur}\SpecialCharTok{$}\NormalTok{Overall),}\AttributeTok{cols =} \StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in plot.window(...): "cols" is not a graphical parameter
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in plot.xy(xy, type, ...): "cols" is not a graphical parameter
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(side = side, at = at, labels = labels, ...): "cols" is not a
+## graphical parameter
+
+## Warning in axis(side = side, at = at, labels = labels, ...): "cols" is not a
+## graphical parameter
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in box(...): "cols" is not a graphical parameter
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(...): "cols" is not a graphical parameter
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lines}\NormalTok{(}\FunctionTok{density}\NormalTok{(fifa23\_ame}\SpecialCharTok{$}\NormalTok{Overall),}\AttributeTok{cols =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in plot.xy(xy.coords(x, y), type = type, ...): "cols" is not a graphical
+## parameter
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topleft"}\NormalTok{,}\FunctionTok{c}\NormalTok{(}\StringTok{"ame"}\NormalTok{, }\StringTok{"eur"}\NormalTok{),}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{,}\StringTok{"red"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{taller_evaluable1_ENUNCIADO_22_23_files/figure-latex/unnamed-chunk-9-1.pdf}
 
 \end{document}

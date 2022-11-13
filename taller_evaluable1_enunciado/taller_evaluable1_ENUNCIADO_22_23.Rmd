@@ -1,11 +1,11 @@
 ---
 title: "Taller Evaluable 1, FIFA 2022-23"
 output:
-  pdf_document: 
-    keep_tex: yes
   html_document: 
     number_sections: yes
     toc: yes
+  pdf_document: 
+    keep_tex: yes
   word_document: default
 ---
 
@@ -34,10 +34,10 @@ Rellenad estos datos:
 
 **PONED NOMBRE DEL GRUPO**
 
-*  Apellidos, Nombre Alumno 
-*  Apellidos, Nombre Alumno 
-*  Apellidos, Nombre Alumno 
-*  Apellidos, Nombre Alumno 
+*  Florit Ensenyat, Jordi 
+*  Ferrer Fernández, Marc 
+*  Girón Rodríguez, Pau 
+*  Fornés Reynés, Josep Gabriel 
 
 
 ##  Carga de datos
@@ -78,7 +78,7 @@ Generar un data frame con el nombre `fifa23_eur` con los jugadores de estas sele
 ```{r}
 fifa23_eur = datos[datos$NationalTeam %in% eur,]
 fifa23_eur$NationalTeam = droplevels(fifa23_eur$NationalTeam)
-fifa23_eur$Name
+unique(fifa23_eur$Name)
 
 ```
 
@@ -93,7 +93,7 @@ Calcular la media y la desviación típica  EN MILES de euros  del valor   de ca
 
 ### Solucion 2
 ```{r}
-tabla1 = as.data.frame(aggregate(ValueEUR))
+
 ```
 
 
@@ -101,6 +101,12 @@ tabla1 = as.data.frame(aggregate(ValueEUR))
 ##  Pregunta `r num=num+1;num `
 
 Discretiza la variable `ValueEUR` de  `fifa23_eur` en los 4 niveles siguientes: "Cuartil_1", "Cuartil_2", "Cuartil_3" y "Cuartil_4", según los cortes por  la función `quantile`para 0.25,0.5 y 0.75. La variable resultante Value_Level tiene que ser un factor ordenado en orden creciente de valor. 
+
+```{r}
+probs = c(0.25,0.5,0.75)
+quantile(fifa23_eur$ValueEUR,probs)
+valor4=ordered(cut(fifa23_eur$ValueEUR,breaks=c(0,quantile(fifa23_eur$ValueEUR,probs),Inf)))
+```
 
 ##  Pregunta `r num=num+1;num `
 
@@ -142,4 +148,17 @@ ame=c("Argentina","Brazil","Canada","Mexico","Ecuador","United States" )
 
 Generar un data frame `fifa23_ame`. Comparar la distribución del  score `overall` para TODOS los jugadores de las 6 selecciones de europa  y  TODOS los jugadores de las seis selecciones de América. Dibujando un histograma con la función *kernel* en un solo gráfico. Comentar los resultados.
 
+### Solución 
+
+```{r}
+fifa23_ame=datos[datos$NationalTeam %in% ame,]
+fifa23_ame$NationalTeam = droplevels(fifa23_ame$NationalTeam)
+unique(fifa23_ame$NationalTeam)
+```
+
+```{r}
+plot(density(fifa23_eur$Overall),col="red")
+lines(density(fifa23_ame$Overall),col="blue")
+legend("topleft",col=c("red","blue"), legend=c("eur","ame"),lwd=3,bty="l",cex=0.8)
+```
 
