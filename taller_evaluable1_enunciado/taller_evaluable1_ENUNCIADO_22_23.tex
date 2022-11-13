@@ -109,15 +109,16 @@
 \begin{document}
 \maketitle
 
-\begin{flushright}\includegraphics[width=0.7\linewidth]{logoM3} \end{flushright}
+\begin{center}\includegraphics[width=0.1\linewidth]{logoM3} \end{center}
 
 \hypertarget{taller-evaluable-datos-fifa-2023}{%
 \section{Taller evaluable datos FIFA
 2023}\label{taller-evaluable-datos-fifa-2023}}
 
-Cada pregunta vale 1 punto. Se puntúa la presentación, la claridad y que
-los dibujos están completos. Este taller está pensado para resolver con
-R-base pero podéis utilizar tidyverse u otros paquetes de R.
+Cada pregunta vale 1 punto menos las dos últimas que valen 1.5 puntos.
+Se puntúa la presentación, la claridad y que los dibujos están
+completos. Este taller está pensado para resolver con R-base pero podéis
+utilizar tidyverse u otros paquetes de R.
 
 En la web de kaggle
 \href{https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database}{FIFA23
@@ -197,14 +198,41 @@ Las selecciones europeas que han ganado un mundial son
 Generar un data frame con el nombre \texttt{fifa23\_eur} con los
 jugadores de estas selecciones.
 
+\hypertarget{soluciuxf3n-1}{%
+\subsubsection{Solución 1}\label{soluciuxf3n-1}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fifa23\_eur }\OtherTok{=}\NormalTok{ datos[datos}\SpecialCharTok{$}\NormalTok{NationalTeam }\SpecialCharTok{\%in\%}\NormalTok{ eur,]}
+\NormalTok{fifa23\_eur}\SpecialCharTok{$}\NormalTok{NationalTeam }\OtherTok{=} \FunctionTok{droplevels}\NormalTok{(fifa23\_eur}\SpecialCharTok{$}\NormalTok{NationalTeam)}
+\NormalTok{fifa23\_eur}\SpecialCharTok{$}\NormalTok{NationalTeam}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   [1] France   France   Germany  Portugal England  Germany  France   Portugal
+##   [9] Italy    Portugal Portugal Germany  Germany  Spain    France   Germany 
+##  [17] Spain    Italy    France   Germany  Italy    England  Germany  Portugal
+##  [25] Spain    France   Italy    France   Germany  Germany  Germany  England 
+##  [33] Spain    Spain    France   Italy    Spain    Spain    England  France  
+##  [41] Portugal Germany  France   Spain    Italy    England  Spain    France  
+##  [49] France   Italy    England  Italy    England  Italy    Portugal France  
+##  [57] Germany  England  Italy    Germany  Portugal England  England  England 
+##  [65] Spain    Italy    Spain    Portugal France   Spain    Spain    Spain   
+##  [73] England  France   England  Spain    Italy    Italy    Germany  Portugal
+##  [81] Germany  Germany  Spain    Portugal Portugal England  Germany  England 
+##  [89] Spain    France   Spain    England  England  Portugal England  Portugal
+##  [97] Spain    France   Italy    Portugal Italy    Germany  France   Germany 
+## [105] Spain    England  Portugal England  Portugal Portugal Germany  England 
+## [113] France   Portugal France   France   Portugal Spain    Portugal Germany 
+## [121] Italy    Italy    France   England  Portugal Italy    France   Portugal
+## [129] England  Italy    Italy    Italy    Germany  Italy    Spain    Spain   
+## [137] Italy    Germany 
+## Levels: England France Germany Italy Portugal Spain
+\end{verbatim}
+
 \hypertarget{pregunta-2}{%
 \subsection{Pregunta 2}\label{pregunta-2}}
-
-Crea un data frame \texttt{fifa23\_eur} que contenga a TODOS los
-jugadores de los clubs encontrados en el ejercicio anterior.
-
-\hypertarget{pregunta-3}{%
-\subsection{Pregunta 3}\label{pregunta-3}}
 
 Calcular la media y la desviación típica del valor de cada selección
 nacional cada equipo del data frame \texttt{fifa23\_eur}.
@@ -213,8 +241,8 @@ Calcular la media y la desviación típica EN MILES de euros del valor de
 cada jugador \texttt{ValueEUR} de cada selección nacional del frame
 \texttt{fifa23\_eur} por posición en el campo delantera media y defensa.
 
-\hypertarget{pregunta-4}{%
-\subsection{Pregunta 4}\label{pregunta-4}}
+\hypertarget{pregunta-3}{%
+\subsection{Pregunta 3}\label{pregunta-3}}
 
 Discretiza la variable \texttt{ValueEUR} de \texttt{fifa23\_eur} en los
 4 niveles siguientes: ``Cuartil\_1'', ``Cuartil\_2'', ``Cuartil\_3'' y
@@ -222,17 +250,17 @@ Discretiza la variable \texttt{ValueEUR} de \texttt{fifa23\_eur} en los
 0.25,0.5 y 0.75. La variable resultante Value\_Level tiene que ser un
 factor ordenado en orden creciente de valor.
 
-\hypertarget{pregunta-5}{%
-\subsection{Pregunta 5}\label{pregunta-5}}
+\hypertarget{pregunta-4}{%
+\subsection{Pregunta 4}\label{pregunta-4}}
 
 ¿Qué selección tiene a más jugadores en del intervalos de Valor máximo
 calculado en el ejercicio anterior?
 
-Estudiar la función \texttt{droplevels} para quitar los niveles de las
+Estudiad la función \texttt{droplevels} para quitar los niveles de las
 selecciones que no aparecen.
 
-\hypertarget{pregunta-6}{%
-\subsection{Pregunta 6}\label{pregunta-6}}
+\hypertarget{pregunta-5}{%
+\subsection{Pregunta 5}\label{pregunta-5}}
 
 ¿Respecto al tiro cuántos zurdos, diestros y ambidiestros (3) (buscad
 qué variable es e interpretar su valor de 1 a 5 hay entre todos los
@@ -241,8 +269,8 @@ jugadores de \texttt{fifa23\_eur}? Construir una variable llamada
 ¿Qué selección tiene mayor cantidad de zurdos (decidid que es zurdo
 diestro y ambidiestro)?
 
-\hypertarget{pregunta-7}{%
-\subsection{Pregunta 7}\label{pregunta-7}}
+\hypertarget{pregunta-6}{%
+\subsection{Pregunta 6}\label{pregunta-6}}
 
 Calcular la la tabla de contingencia (frecuencias absolutas) por
 posición \texttt{NationalPosition} contra \texttt{foot}. contingencia
@@ -251,23 +279,23 @@ de \texttt{NationalPosition} y \texttt{foot}. Calcular la tabla de
 proporciones marginales de \texttt{foot} por (condicionada a)
 \texttt{NationalPosition}.
 
-\hypertarget{pregunta-8}{%
-\subsection{Pregunta 8}\label{pregunta-8}}
+\hypertarget{pregunta-7}{%
+\subsection{Pregunta 7}\label{pregunta-7}}
 
 Calcular diagramas de barras adosados para la primera tabla del
 ejercicio anterior y un diagrama de mosaico de la segunda tabla. Poned
 una leyenda y nombre del gráfico y comentar los resultados con un
 pequeño párrafo.
 
+\hypertarget{pregunta-8}{%
+\subsection{Pregunta 8}\label{pregunta-8}}
+
+Comparar la distribución del score \texttt{Overall} con un
+\texttt{boxplot} para las 6 selecciones. Decorar adecuadamente el
+resultado. Comentar los resultados.
+
 \hypertarget{pregunta-9}{%
 \subsection{Pregunta 9}\label{pregunta-9}}
-
-Comparar la distribución del score \texttt{Overall} con un boxplot para
-las 6 selecciones. Decorar adecuadamente el resultado. Comentar los
-resultados.
-
-\hypertarget{pregunta-10}{%
-\subsection{Pregunta 10}\label{pregunta-10}}
 
 Generar un data frame \texttt{fifa23\_ame} que contenga exclusivamente a
 las 6 selecciones de América que van al mundial 2022.

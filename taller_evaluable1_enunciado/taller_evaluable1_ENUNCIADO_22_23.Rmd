@@ -1,11 +1,11 @@
 ---
 title: "Taller Evaluable 1, FIFA 2022-23"
 output:
+  pdf_document: 
+    keep_tex: yes
   html_document: 
     number_sections: yes
     toc: yes
-  pdf_document: 
-    keep_tex: yes
   word_document: default
 ---
 
@@ -13,7 +13,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE,cache=FALSE)
 ```
-```{r fig.align='right',echo=FALSE,out.width="70%"}
+```{r fig.align='center',echo=FALSE,out.width="10%"}
 knitr::include_graphics("logoM3.png")
 ```
 
@@ -21,7 +21,7 @@ knitr::include_graphics("logoM3.png")
 
 # Taller evaluable datos FIFA 2023
 
-Cada pregunta vale 1 punto. Se puntúa la presentación, la claridad y que los dibujos están completos. Este taller está pensado para resolver con R-base  pero podéis utilizar tidyverse u otros paquetes de R.
+Cada pregunta vale 1 punto menos las dos últimas que valen 1.5 puntos. Se puntúa la presentación, la claridad y que los dibujos están completos. Este taller está pensado para resolver con R-base  pero podéis utilizar tidyverse u otros paquetes de R.
 
 En la web  de kaggle [FIFA23 OFFICIAL DATASET](https://www.kaggle.com/datasets/bryanb/fifa-player-stats-database). Contiene todos los data sets de  de datos básicos  de FIFA17 to FIFA23 del videojuego.
 
@@ -34,10 +34,10 @@ Rellenad estos datos:
 
 **PONED NOMBRE DEL GRUPO**
 
-*  Ferrer Fernández, Marc 
-*  Fornés Reynés, Josep Gabriel
-*  Florit Ensenyat, Jordi
-*  Girón Rodríguez, Pau 
+*  Apellidos, Nombre Alumno 
+*  Apellidos, Nombre Alumno 
+*  Apellidos, Nombre Alumno 
+*  Apellidos, Nombre Alumno 
 
 
 ##  Carga de datos
@@ -58,7 +58,12 @@ datos = read.csv("players_fifa23.csv",
 Las variables de la 1 (`NationalTeam`) a la 31(`NationalPosition`) son variables de perfil del jugador: su nombre, su  equipo su sueldo su número de camiseta... El resto de variables de la 34 (`pace`) a la 90  (`rb`) son variables numéricas  enteras con valores de 0 a 100 que parametrizan cómo es el jugador el el juego FIFA player 2023.  
 
 
-##  Pregunta 1
+```{r echo=FALSE}
+num=0
+```
+
+
+##  Pregunta `r num=num+1;num `
 
 Las selecciones europeas que han ganado un mundial son 
 
@@ -69,57 +74,65 @@ eur
 
 Generar un data frame con el nombre `fifa23_eur` con los jugadores de estas selecciones.
 
+### Solución 1
+```{r}
+fifa23_eur = datos[datos$NationalTeam %in% eur,]
+fifa23_eur$NationalTeam = droplevels(fifa23_eur$NationalTeam)
+fifa23_eur$Name
 
-## Pregunta 2
-
-Crea un data frame `fifa23_eur` que contenga a TODOS  los jugadores de los clubs encontrados en el ejercicio anterior.
+```
 
 
-## Pregunta 3
+
+
+##  Pregunta `r num=num+1;num `
 
 Calcular la media y la desviación típica   del  valor de cada selección nacional cada equipo del data frame `fifa23_eur`. 
 
 Calcular la media y la desviación típica  EN MILES de euros  del valor   de cada jugador `ValueEUR` de cada selección nacional del frame `fifa23_eur` por posición en el campo delantera media y defensa. 
 
+### Solucion 2
+```{r}
+tabla1 = as.data.frame(aggregate(ValueEUR))
+```
 
 
 
-
-## Pregunta 4
+##  Pregunta `r num=num+1;num `
 
 Discretiza la variable `ValueEUR` de  `fifa23_eur` en los 4 niveles siguientes: "Cuartil_1", "Cuartil_2", "Cuartil_3" y "Cuartil_4", según los cortes por  la función `quantile`para 0.25,0.5 y 0.75. La variable resultante Value_Level tiene que ser un factor ordenado en orden creciente de valor. 
 
-## Pregunta 5
+##  Pregunta `r num=num+1;num `
 
 ¿Qué selección  tiene a más jugadores en  del intervalos de Valor  máximo  calculado en el ejercicio anterior?
 
-Estudiar la función `droplevels` para quitar los niveles de las selecciones que no aparecen.
+Estudiad la función `droplevels` para quitar los niveles de las selecciones que no aparecen.
 
 
 
-## Pregunta 6
+##  Pregunta `r num=num+1;num `
 
 ¿Respecto al tiro cuántos zurdos, diestros  y ambidiestros (3) (buscad qué variable es e interpretar su valor de 1 a 5 hay entre todos los jugadores de `fifa23_eur`? Construir una variable llamada `foot` que tenga por niveles "left",  "right","ambidextrous"   ¿Qué selección tiene mayor cantidad de zurdos (decidid que es zurdo diestro y ambidiestro)?
 
 
-## Pregunta 7
+##  Pregunta `r num=num+1;num `
 
 Calcular la la tabla de contingencia (frecuencias absolutas) por posición  `NationalPosition` contra  `foot`. contingencia con  las variable `foot`. Calcular la tabla global  de proporciones de `NationalPosition` y  `foot`. Calcular la tabla  de proporciones marginales de `foot` por (condicionada a) `NationalPosition`.
 
-## Pregunta 8
+##  Pregunta `r num=num+1;num `
 
 Calcular diagramas de barras adosados para la primera tabla del ejercicio anterior y un diagrama de mosaico de la segunda  tabla. Poned una leyenda  y nombre del gráfico  y comentar los resultados con un pequeño párrafo.
 
 
 
 
-## Pregunta 9
+##  Pregunta `r num=num+1;num `
 
-Comparar la distribución del  score `Overall`  con un boxplot para las 6 selecciones. Decorar adecuadamente el resultado. Comentar los resultados.
+Comparar la distribución del  score `Overall`  con un `boxplot` para las 6 selecciones. Decorar adecuadamente el resultado. Comentar los resultados.
 
 
 
-## Pregunta 10
+##  Pregunta `r num=num+1;num `
 
 Generar un data frame `fifa23_ame`  que contenga exclusivamente a  las 6  selecciones de América que van al mundial 2022.
 
