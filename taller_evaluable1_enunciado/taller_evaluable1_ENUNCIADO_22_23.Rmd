@@ -34,10 +34,10 @@ Rellenad estos datos:
 
 **PONED NOMBRE DEL GRUPO**
 
-*  Apellidos, Nombre Alumno 
-*  Apellidos, Nombre Alumno 
-*  Apellidos, Nombre Alumno 
-*  Apellidos, Nombre Alumno 
+*  Ferrer Fernández, Marc 
+*  Fornés Reynés, Josep Gabriel
+*  Florit Ensenyat, Jordi
+*  Girón Rodríguez, Pau 
 
 
 ##  Carga de datos
