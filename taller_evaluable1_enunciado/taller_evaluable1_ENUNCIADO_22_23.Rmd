@@ -157,7 +157,7 @@ unique(fifa23_ame$NationalTeam)
 ```
 
 ```{r}
-plot(density(fifa23_eur$Overall),col="red")
+plot(density(fifa23_eur$Overall),col="red",xlim=c(60,100))
 lines(density(fifa23_ame$Overall),col="blue")
 legend("topleft",col=c("red","blue"), legend=c("eur","ame"),lwd=3,bty="l",cex=0.8)
 ```
