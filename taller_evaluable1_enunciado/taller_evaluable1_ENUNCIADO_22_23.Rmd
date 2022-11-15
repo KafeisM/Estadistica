@@ -92,8 +92,12 @@ Calcular la media y la desviación típica   del  valor de cada selección nacio
 Calcular la media y la desviación típica  EN MILES de euros  del valor   de cada jugador `ValueEUR` de cada selección nacional del frame `fifa23_eur` por posición en el campo delantera media y defensa. 
 
 ### Solucion 2
-```{r}
 
+Tabla con la media y la desviación tipica:
+```{r}
+tabla=as.data.frame(aggregate(ValueEUR~NationalTeam, data=fifa23_eur,
+                      FUN=function(x){c(media=mean(x,na.rm = TRUE), desv.tip=sd(x,na.rm = TRUE))}))
+tabla
 ```
 
 
@@ -120,21 +124,34 @@ Estudiad la función `droplevels` para quitar los niveles de las selecciones que
 
 ¿Respecto al tiro cuántos zurdos, diestros  y ambidiestros (3) (buscad qué variable es e interpretar su valor de 1 a 5 hay entre todos los jugadores de `fifa23_eur`? Construir una variable llamada `foot` que tenga por niveles "left",  "right","ambidextrous"   ¿Qué selección tiene mayor cantidad de zurdos (decidid que es zurdo diestro y ambidiestro)?
 
+```{r}
+str(fifa23_eur$weakFoot)
+```
+```{r}
+table(fifa23_eur$weakFoot)
+```
+
+
 
 ##  Pregunta `r num=num+1;num `
 
 Calcular la la tabla de contingencia (frecuencias absolutas) por posición  `NationalPosition` contra  `foot`. contingencia con  las variable `foot`. Calcular la tabla global  de proporciones de `NationalPosition` y  `foot`. Calcular la tabla  de proporciones marginales de `foot` por (condicionada a) `NationalPosition`.
+
+
 
 ##  Pregunta `r num=num+1;num `
 
 Calcular diagramas de barras adosados para la primera tabla del ejercicio anterior y un diagrama de mosaico de la segunda  tabla. Poned una leyenda  y nombre del gráfico  y comentar los resultados con un pequeño párrafo.
 
 
-
-
 ##  Pregunta `r num=num+1;num `
 
 Comparar la distribución del  score `Overall`  con un `boxplot` para las 6 selecciones. Decorar adecuadamente el resultado. Comentar los resultados.
+
+
+```{r}
+boxplot(fifa23_eur$Overall~fifa23_eur$NationalTeam)
+```
 
 
 
