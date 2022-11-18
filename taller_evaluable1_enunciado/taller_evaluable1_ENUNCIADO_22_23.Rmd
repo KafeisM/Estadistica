@@ -109,7 +109,7 @@ Discretiza la variable `ValueEUR` de  `fifa23_eur` en los 4 niveles siguientes: 
 ```{r}
 probs = c(0.25,0.5,0.75)
 quantile(fifa23_eur$ValueEUR,probs)
-valor4=ordered(cut(fifa23_eur$ValueEUR,breaks=c(0,quantile(fifa23_eur$ValueEUR,probs),Inf)))
+Value_Level=ordered(cut(fifa23_eur$ValueEUR,breaks=c(0,quantile(fifa23_eur$ValueEUR,probs),Inf)))
 ```
 
 ##  Pregunta `r num=num+1;num `
