@@ -106,10 +106,17 @@ tabla
 
 Discretiza la variable `ValueEUR` de  `fifa23_eur` en los 4 niveles siguientes: "Cuartil_1", "Cuartil_2", "Cuartil_3" y "Cuartil_4", según los cortes por  la función `quantile`para 0.25,0.5 y 0.75. La variable resultante Value_Level tiene que ser un factor ordenado en orden creciente de valor. 
 
+## Solución 3
+
 ```{r}
-probs = c(0.25,0.5,0.75)
-quantile(fifa23_eur$ValueEUR,probs)
-Value_Level=ordered(cut(fifa23_eur$ValueEUR,breaks=c(0,quantile(fifa23_eur$ValueEUR,probs),Inf)))
+quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75))
+valor4=ordered(cut(fifa23_eur$ValueEUR,
+                   breaks=c(0,quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75)),Inf)))
+
+Value_Level <- factor(valor4,labels=c("Cuartil_1", "Cuartil_2", "Cuartil_3" , "Cuartil_4"))
+table(Value_Level)
+
+
 ```
 
 ##  Pregunta `r num=num+1;num `
@@ -118,17 +125,30 @@ Value_Level=ordered(cut(fifa23_eur$ValueEUR,breaks=c(0,quantile(fifa23_eur$Value
 
 Estudiad la función `droplevels` para quitar los niveles de las selecciones que no aparecen.
 
+```{r}
+
+```
 
 
 ##  Pregunta `r num=num+1;num `
 
-¿Respecto al tiro cuántos zurdos, diestros  y ambidiestros (3) (buscad qué variable es e interpretar su valor de 1 a 5 hay entre todos los jugadores de `fifa23_eur`? Construir una variable llamada `foot` que tenga por niveles "left",  "right","ambidextrous"   ¿Qué selección tiene mayor cantidad de zurdos (decidid que es zurdo diestro y ambidiestro)?
+¿Respecto al tiro cuántos zurdos, diestros  y ambidiestros (3) (buscad qué variable es e interpretar su valor de 1 a 5) hay entre todos los jugadores de `fifa23_eur`? Construir una variable llamada `foot` que tenga por niveles "left",  "right","ambidextrous"   ¿Qué selección tiene mayor cantidad de zurdos (decidid que es zurdo diestro y ambidiestro)?
 
+## Solución 5
+
+Consideramos que la variable `WeakFoot` de los jugadores nos indica segun el nivel de dicha variable su pierna de tiro.
 ```{r}
-str(fifa23_eur$weakFoot)
+table(fifa23_eur$WeakFoot)
 ```
+Creamos la variable `foot` que contenga esos niveles. Determinamos que entre 1-2 el jugador usa la pierna izquierda "left", si el valor es 3 el jugador es ambidiestro "ambidextrous" y finalment entre 4-5 la pierna derecha "right" y en total hay los siguientes jugadores:
 ```{r}
-table(fifa23_eur$weakFoot)
+fifa23_eur$foot = factor(ifelse(fifa23_eur$WeakFoot <= 2, "left", ifelse(fifa23_eur$WeakFoot == 3, "ambidextrous", "right")))
+table(fifa23_eur$foot)
+```
+ 
+Finalmente observamos que la seleccion con mayor numero de zurdos es Alemania
+```{r}
+table(fifa23_eur$NationalTeam,fifa23_eur$foot)
 ```
 
 
@@ -136,6 +156,13 @@ table(fifa23_eur$weakFoot)
 ##  Pregunta `r num=num+1;num `
 
 Calcular la la tabla de contingencia (frecuencias absolutas) por posición  `NationalPosition` contra  `foot`. contingencia con  las variable `foot`. Calcular la tabla global  de proporciones de `NationalPosition` y  `foot`. Calcular la tabla  de proporciones marginales de `foot` por (condicionada a) `NationalPosition`.
+
+## Solución 6
+
+```{r}
+#table(fifa23_eur$NationalPosition,foot)
+```
+
 
 
 
@@ -148,6 +175,7 @@ Calcular diagramas de barras adosados para la primera tabla del ejercicio anteri
 
 Comparar la distribución del  score `Overall`  con un `boxplot` para las 6 selecciones. Decorar adecuadamente el resultado. Comentar los resultados.
 
+## Solución 8 
 
 ```{r}
 boxplot(fifa23_eur$Overall~fifa23_eur$NationalTeam)
