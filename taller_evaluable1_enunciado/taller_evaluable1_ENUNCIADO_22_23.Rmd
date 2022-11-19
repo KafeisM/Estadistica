@@ -106,18 +106,23 @@ tabla
 
 Discretiza la variable `ValueEUR` de  `fifa23_eur` en los 4 niveles siguientes: "Cuartil_1", "Cuartil_2", "Cuartil_3" y "Cuartil_4", según los cortes por  la función `quantile`para 0.25,0.5 y 0.75. La variable resultante Value_Level tiene que ser un factor ordenado en orden creciente de valor. 
 
-## Solución 3
+### Solución 3
 
 ```{r}
 quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75))
 valor4=ordered(cut(fifa23_eur$ValueEUR,
                    breaks=c(0,quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75)),Inf)))
 
+#Value_Level <- factor(valor4,levels=c("Cuartil_1", "Cuartil_2", "Cuartil_3" , "Cuartil_4"))
 Value_Level <- factor(valor4,labels=c("Cuartil_1", "Cuartil_2", "Cuartil_3" , "Cuartil_4"))
 table(Value_Level)
 
+#breaks = c(0,quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75)),Inf)
+#value4 = ordered(cut(fifa23_eur$ValueEUR, breaks = breaks))
+#str(value4)
 
 ```
+
 
 ##  Pregunta `r num=num+1;num `
 
