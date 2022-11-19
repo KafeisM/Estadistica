@@ -100,6 +100,15 @@ tabla=as.data.frame(aggregate(ValueEUR~NationalTeam, data=fifa23_eur,
 tabla
 ```
 
+```{r}
+tabla2=as.data.frame(aggregate(ValueEUR~NationalTeam+NationalPosition, data=fifa23_eur,
+                      FUN=function(x){c(media=mean(x/1000,na.rm = TRUE), 
+                                        min=min((x/1000),na.rm=TRUE),
+                                        max=max((x/1000),na.rm=TRUE),
+                                        desv.tip=sd((x/1000),na.rm = TRUE))}))
+tabla2
+
+```
 
 
 ##  Pregunta `r num=num+1;num `
@@ -108,29 +117,31 @@ Discretiza la variable `ValueEUR` de  `fifa23_eur` en los 4 niveles siguientes: 
 
 ### Solución 3
 
+Consideramos la variable aleatoria X = "valor en € de los jugadores de las 5 selecciones europeas". Mostramos los cuartiles (0.25, 0.50, 0.75). Creamos la variable `cuartiles`para guardar en ella un factor dividido en los diferentes cuantiles, con la funcion break. Finalmente, creamos un facor igual a valor4 pero atribuyendo nombres a las columnas.
 ```{r}
 quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75))
 valor4=ordered(cut(fifa23_eur$ValueEUR,
                    breaks=c(0,quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75)),Inf)))
 
-#Value_Level <- factor(valor4,levels=c("Cuartil_1", "Cuartil_2", "Cuartil_3" , "Cuartil_4"))
+
+table(valor4)
 Value_Level <- factor(valor4,labels=c("Cuartil_1", "Cuartil_2", "Cuartil_3" , "Cuartil_4"))
 table(Value_Level)
-
-#breaks = c(0,quantile(fifa23_eur$ValueEUR,probs = c(0.25,0.5,0.75)),Inf)
-#value4 = ordered(cut(fifa23_eur$ValueEUR, breaks = breaks))
-#str(value4)
 
 ```
 
 
 ##  Pregunta `r num=num+1;num `
 
-¿Qué selección  tiene a más jugadores en  del intervalos de Valor  máximo  calculado en el ejercicio anterior?
+¿Qué selección  tiene a más jugadores en  el intervalo de Valor  máximo  calculado en el ejercicio anterior?
 
 Estudiad la función `droplevels` para quitar los niveles de las selecciones que no aparecen.
 
+###   Solución 4
+
+Podemos ver que la selección con los jugadores de más valor es Francia.
 ```{r}
+table(valor4,droplevels(fifa23_eur$NationalTeam))
 
 ```
 
@@ -139,7 +150,7 @@ Estudiad la función `droplevels` para quitar los niveles de las selecciones que
 
 ¿Respecto al tiro cuántos zurdos, diestros  y ambidiestros (3) (buscad qué variable es e interpretar su valor de 1 a 5) hay entre todos los jugadores de `fifa23_eur`? Construir una variable llamada `foot` que tenga por niveles "left",  "right","ambidextrous"   ¿Qué selección tiene mayor cantidad de zurdos (decidid que es zurdo diestro y ambidiestro)?
 
-## Solución 5
+### Solución 5
 
 Consideramos que la variable `WeakFoot` de los jugadores nos indica segun el nivel de dicha variable su pierna de tiro.
 ```{r}
@@ -162,18 +173,28 @@ table(fifa23_eur$NationalTeam,fifa23_eur$foot)
 
 Calcular la la tabla de contingencia (frecuencias absolutas) por posición  `NationalPosition` contra  `foot`. contingencia con  las variable `foot`. Calcular la tabla global  de proporciones de `NationalPosition` y  `foot`. Calcular la tabla  de proporciones marginales de `foot` por (condicionada a) `NationalPosition`.
 
-## Solución 6
+### Solución 6
 
 ```{r}
-#table(fifa23_eur$NationalPosition,foot)
+tabla1 = table(fifa23_eur$NationalPosition,fifa23_eur$foot)
+tabla1
+
+tabla2 = prop.table(tabla1)
+tabla2
 ```
-
-
 
 
 ##  Pregunta `r num=num+1;num `
 
 Calcular diagramas de barras adosados para la primera tabla del ejercicio anterior y un diagrama de mosaico de la segunda  tabla. Poned una leyenda  y nombre del gráfico  y comentar los resultados con un pequeño párrafo.
+
+### Solución 7
+
+```{r}
+barplot(tabla1,beside=TRUE,col=c("red","purple","yellow"))
+legend("topleft",col=c("red","purple","yellow"),legend=c("Right", "Ambidextrous", "Left"),lwd=3,bty="l",cex=0.8)
+plot(fifa23_eur$foot,fifa23_eur$NationalPosition)
+```
 
 
 ##  Pregunta `r num=num+1;num `
@@ -198,7 +219,7 @@ ame=c("Argentina","Brazil","Canada","Mexico","Ecuador","United States" )
 
 Generar un data frame `fifa23_ame`. Comparar la distribución del  score `overall` para TODOS los jugadores de las 6 selecciones de europa  y  TODOS los jugadores de las seis selecciones de América. Dibujando un histograma con la función *kernel* en un solo gráfico. Comentar los resultados.
 
-### Solución 
+### Solución 9
 
 ```{r}
 fifa23_ame=datos[datos$NationalTeam %in% ame,]
