@@ -181,6 +181,9 @@ tabla1
 
 tabla2 = prop.table(tabla1)
 tabla2
+
+tabla3 = prop.table(table(fifa23_eur$foot,fifa23_eur$NationalPosition),margin=1)
+tabla3
 ```
 
 
@@ -191,8 +194,8 @@ Calcular diagramas de barras adosados para la primera tabla del ejercicio anteri
 ### Solución 7
 
 ```{r}
-barplot(tabla1,beside=TRUE,col=c("red","purple","yellow"))
-legend("topleft",col=c("red","purple","yellow"),legend=c("Right", "Ambidextrous", "Left"),lwd=3,bty="l",cex=0.8)
+barplot(tabla1,beside=TRUE,col=rainbow(18))
+legend("topleft",col=rainbow(18),legend=c("","CAM","CB","CDM","CM","GK","LB","LF","LM","LW","LWB","RB","RF","RM","RW","RWB","ST","SUB"),lwd=3,bty="1",cex=0.6)
 plot(fifa23_eur$foot,fifa23_eur$NationalPosition)
 ```
 
@@ -201,7 +204,7 @@ plot(fifa23_eur$foot,fifa23_eur$NationalPosition)
 
 Comparar la distribución del  score `Overall`  con un `boxplot` para las 6 selecciones. Decorar adecuadamente el resultado. Comentar los resultados.
 
-## Solución 8 
+### Solución 8 
 
 ```{r}
 boxplot(fifa23_eur$Overall~fifa23_eur$NationalTeam)
