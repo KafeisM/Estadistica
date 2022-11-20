@@ -467,6 +467,8 @@ eur</code></pre>
 jugadores de estas selecciones.</p>
 <div id="solución-1" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Solución 1</h3>
+<p>Estos son los jugadores de las selecciones europeas que han ganado un
+mundial.</p>
 <pre class="r"><code>fifa23_eur = datos[datos$NationalTeam %in% eur,]
 fifa23_eur$NationalTeam = droplevels(fifa23_eur$NationalTeam)
 unique(fifa23_eur$Name)</code></pre>
@@ -518,7 +520,7 @@ frame <code>fifa23_eur</code> por posición en el campo delantera media y
 defensa.</p>
 <div id="solucion-2" class="section level3" number="1.3.1">
 <h3><span class="header-section-number">1.3.1</span> Solucion 2</h3>
-<p>Tabla con la media y la desviación tipica:</p>
+<p>Tabla con la media y la desviación típica:</p>
 <pre class="r"><code>tabla=as.data.frame(aggregate(ValueEUR~NationalTeam, data=fifa23_eur,
                       FUN=function(x){c(media=mean(x,na.rm = TRUE), desv.tip=sd(x,na.rm = TRUE))}))
 tabla</code></pre>
@@ -529,128 +531,292 @@ tabla</code></pre>
 ## 4        Italy       39356522          27155626
 ## 5     Portugal       43213043          29830892
 ## 6        Spain       41956522          24335679</code></pre>
-<pre class="r"><code>tabla2=as.data.frame(aggregate(ValueEUR~NationalTeam+NationalPosition, data=fifa23_eur,
+<p>En la siguiente tabla vemos la media y la desviacion tipica en base a
+cada jugador de las selecciones nacionales:</p>
+<pre class="r"><code>tabla2=as.data.frame(aggregate(ValueEUR~Name+NationalPosition, data=fifa23_eur,
                       FUN=function(x){c(media=mean(x/1000,na.rm = TRUE), 
                                         min=min((x/1000),na.rm=TRUE),
                                         max=max((x/1000),na.rm=TRUE),
                                         desv.tip=sd((x/1000),na.rm = TRUE))}))
 tabla2</code></pre>
-<pre><code>##    NationalTeam NationalPosition ValueEUR.media ValueEUR.min ValueEUR.max
-## 1       England              CAM      57500.000    57500.000    57500.000
-## 2        France              CAM      30500.000    30500.000    30500.000
-## 3       Germany              CAM      63000.000    63000.000    63000.000
-## 4       England               CB      29250.000    24000.000    34500.000
-## 5        France               CB      41666.667    39000.000    46000.000
-## 6       Germany               CB      66250.000    59000.000    73500.000
-## 7         Italy               CB      35750.000    11000.000    60500.000
-## 8      Portugal               CB      56050.000     4600.000   107500.000
-## 9         Spain               CB      42250.000    20000.000    64500.000
-## 10       France              CDM      62250.000    52500.000    72000.000
-## 11      Germany              CDM      74750.000    44000.000   105500.000
-## 12     Portugal              CDM      47500.000    47500.000    47500.000
-## 13        Spain              CDM      26500.000    26500.000    26500.000
-## 14      England               CM      42000.000    32000.000    52000.000
-## 15        Italy               CM      72833.333    51500.000    89500.000
-## 16     Portugal               CM      85000.000    72500.000    97500.000
-## 17        Spain               CM      75250.000    34500.000   116000.000
-## 18      England               GK      26000.000    26000.000    26000.000
-## 19       France               GK       9000.000     9000.000     9000.000
-## 20      Germany               GK      13500.000    13500.000    13500.000
-## 21        Italy               GK     103500.000   103500.000   103500.000
-## 22     Portugal               GK       5000.000     5000.000     5000.000
-## 23        Spain               GK      37000.000    37000.000    37000.000
-## 24      England               LB      37000.000    37000.000    37000.000
-## 25      Germany               LB      34500.000    34500.000    34500.000
-## 26        Italy               LB      27000.000    27000.000    27000.000
-## 27     Portugal               LB      27500.000    27500.000    27500.000
-## 28        Spain               LB      28000.000    28000.000    28000.000
-## 29       France               LM      27500.000    27500.000    27500.000
-## 30      Germany               LM      49500.000    49500.000    49500.000
-## 31      England               LW      72500.000    72500.000    72500.000
-## 32        Italy               LW      35000.000    35000.000    35000.000
-## 33     Portugal               LW      76000.000    76000.000    76000.000
-## 34        Spain               LW      53000.000    53000.000    53000.000
-## 35      England               RB      37500.000    37500.000    37500.000
-## 36      Germany               RB       9000.000     9000.000     9000.000
-## 37        Italy               RB      27500.000    27500.000    27500.000
-## 38     Portugal               RB      82500.000    82500.000    82500.000
-## 39        Spain               RB      36500.000    36500.000    36500.000
-## 40       France               RM      80000.000    80000.000    80000.000
-## 41      Germany               RM      25500.000    25500.000    25500.000
-## 42      England               RW     109500.000   109500.000   109500.000
-## 43        Italy               RW      66500.000    66500.000    66500.000
-## 44     Portugal               RW      32500.000    32500.000    32500.000
-## 45        Spain               RW      49000.000    49000.000    49000.000
-## 46      England               ST     105500.000   105500.000   105500.000
-## 47       France               ST     127250.000    64000.000   190500.000
-## 48      Germany               ST      38000.000    38000.000    38000.000
-## 49        Italy               ST      55000.000    55000.000    55000.000
-## 50     Portugal               ST      41000.000    41000.000    41000.000
-## 51        Spain               ST      21000.000    21000.000    21000.000
-## 52      England              SUB      42416.667    14500.000    81500.000
-## 53       France              SUB      46833.333    18500.000    94000.000
-## 54      Germany              SUB      48875.000    21500.000    91000.000
-## 55        Italy              SUB      25058.333     1200.000    55000.000
-## 56     Portugal              SUB      33316.667     3800.000    68500.000
-## 57        Spain              SUB      39916.667     7500.000    88500.000
-##    ValueEUR.desv.tip
-## 1                 NA
-## 2                 NA
-## 3                 NA
-## 4           7424.621
-## 5           3785.939
-## 6          10253.048
-## 7          35001.786
-## 8          72761.288
-## 9          31466.252
-## 10         13788.582
-## 11         43487.067
-## 12                NA
-## 13                NA
-## 14         14142.136
-## 15         19425.070
-## 16         17677.670
-## 17         57629.203
-## 18                NA
-## 19                NA
-## 20                NA
-## 21                NA
-## 22                NA
-## 23                NA
-## 24                NA
-## 25                NA
-## 26                NA
-## 27                NA
-## 28                NA
-## 29                NA
-## 30                NA
-## 31                NA
-## 32                NA
-## 33                NA
-## 34                NA
-## 35                NA
-## 36                NA
-## 37                NA
-## 38                NA
-## 39                NA
-## 40                NA
-## 41                NA
-## 42                NA
-## 43                NA
-## 44                NA
-## 45                NA
-## 46                NA
-## 47         89449.008
-## 48                NA
-## 49                NA
-## 50                NA
-## 51                NA
-## 52         19807.980
-## 53         26305.317
-## 54         23099.710
-## 55         16498.345
-## 56         20248.315
-## 57         22057.604</code></pre>
+<pre><code>##                  Name NationalPosition ValueEUR.media ValueEUR.min ValueEUR.max
+## 1        A. Griezmann              CAM          30500        30500        30500
+## 2            M. Mount              CAM          57500        57500        57500
+## 3           T. Müller              CAM          63000        63000        63000
+## 4          A. Bastoni               CB          60500        60500        60500
+## 5          A. Laporte               CB          64500        64500        64500
+## 6          A. Rüdiger               CB          73500        73500        73500
+## 7         Eric García               CB          20000        20000        20000
+## 8          H. Maguire               CB          24000        24000        24000
+## 9           J. Stones               CB          34500        34500        34500
+## 10         L. Bonucci               CB          11000        11000        11000
+## 11       L. Hernández               CB          46000        46000        46000
+## 12            N. Süle               CB          59000        59000        59000
+## 13               Pepe               CB           4600         4600         4600
+## 14          R. Varane               CB          39000        39000        39000
+## 15         Rúben Dias               CB         107500       107500       107500
+## 16          W. Saliba               CB          40000        40000        40000
+## 17        İ. Gündoğan              CDM          44000        44000        44000
+## 18         J. Kimmich              CDM         105500       105500       105500
+## 19           N. Kanté              CDM          72000        72000        72000
+## 20           P. Pogba              CDM          52500        52500        52500
+## 21        Rúben Neves              CDM          47500        47500        47500
+## 22    Sergio Busquets              CDM          26500        26500        26500
+## 23     Bernardo Silva               CM          97500        97500        97500
+## 24    Bruno Fernandes               CM          72500        72500        72500
+## 25            D. Rice               CM          52000        52000        52000
+## 26           Jorginho               CM          51500        51500        51500
+## 27        K. Phillips               CM          32000        32000        32000
+## 28               Koke               CM          34500        34500        34500
+## 29        M. Verratti               CM          77500        77500        77500
+## 30         N. Barella               CM          89500        89500        89500
+## 31              Pedri               CM         116000       116000       116000
+## 32      G. Donnarumma               GK         103500       103500       103500
+## 33          H. Lloris               GK           9000         9000         9000
+## 34        J. Pickford               GK          26000        26000        26000
+## 35           M. Neuer               GK          13500        13500        13500
+## 36       Rui Patrício               GK           5000         5000         5000
+## 37         Unai Simón               GK          37000        37000        37000
+## 38        B. Chilwell               LB          37000        37000        37000
+## 39            D. Raum               LB          34500        34500        34500
+## 40         Jordi Alba               LB          28000        28000        28000
+## 41      L. Spinazzola               LB          27000        27000        27000
+## 42       R. Guerreiro               LB          27500        27500        27500
+## 43           L. Digne               LM          27500        27500        27500
+## 44            L. Sané               LM          49500        49500        49500
+## 45         Diogo Jota               LW          76000        76000        76000
+## 46         L. Insigne               LW          35000        35000        35000
+## 47          Oyarzabal               LW          53000        53000        53000
+## 48        R. Sterling               LW          72500        72500        72500
+## 49           Carvajal               RB          36500        36500        36500
+## 50      G. Di Lorenzo               RB          27500        27500        27500
+## 51       João Cancelo               RB          82500        82500        82500
+## 52          K. Walker               RB          37500        37500        37500
+## 53          T. Kehrer               RB           9000         9000         9000
+## 54         J. Hofmann               RM          25500        25500        25500
+## 55           K. Coman               RM          80000        80000        80000
+## 56          F. Chiesa               RW          66500        66500        66500
+## 57      Ferran Torres               RW          49000        49000        49000
+## 58             Otávio               RW          32500        32500        32500
+## 59           P. Foden               RW         109500       109500       109500
+## 60        C. Immobile               ST          55000        55000        55000
+## 61  Cristiano Ronaldo               ST          41000        41000        41000
+## 62            H. Kane               ST         105500       105500       105500
+## 63         K. Benzema               ST          64000        64000        64000
+## 64          K. Mbappé               ST         190500       190500       190500
+## 65             Morata               ST          21000        21000        21000
+## 66          T. Werner               ST          38000        38000        38000
+## 67          A. Areola              SUB          20000        20000        20000
+## 68         A. Belotti              SUB          21500        21500        21500
+## 69        A. Florenzi              SUB          12500        12500        12500
+## 70           A. Lopes              SUB          16000        16000        16000
+## 71           A. Meret              SUB          14500        14500        14500
+## 72          A. Rabiot              SUB          24000        24000        24000
+## 73        A. Ramsdale              SUB          34500        34500        34500
+## 74      A. Tchouaméni              SUB          61500        61500        61500
+## 75        André Silva              SUB          38000        38000        38000
+## 76        Azpilicueta              SUB          20000        20000        20000
+## 77       B. Cristante              SUB          23000        23000        23000
+## 78          B. Pavard              SUB          20000        20000        20000
+## 79            B. Saka              SUB          60500        60500        60500
+## 80           C. Coady              SUB          14500        14500        14500
+## 81       C. Gallagher              SUB          35500        35500        35500
+## 82          C. Nkunku              SUB          94000        94000        94000
+## 83       Carlos Soler              SUB          53000        53000        53000
+## 84         D. Berardi              SUB          45000        45000        45000
+## 85          Dani Olmo              SUB          46000        46000        46000
+## 86     Danilo Pereira              SUB          17500        17500        17500
+## 87             De Gea              SUB          42000        42000        42000
+## 88        Diogo Costa              SUB          30500        30500        30500
+## 89            Emerson              SUB          10000        10000        10000
+## 90          F. Acerbi              SUB          10000        10000        10000
+## 91       G. Raspadori              SUB          36000        36000        36000
+## 92               Gayà              SUB          32000        32000        32000
+## 93      Gerard Moreno              SUB          53000        53000        53000
+## 94     Gonçalo Guedes              SUB          41000        41000        41000
+## 95      J. Bellingham              SUB          81500        81500        81500
+## 96          J. Brandt              SUB          40000        40000        40000
+## 97          J. Clauss              SUB          18500        18500        18500
+## 98        J. Grealish              SUB          46000        46000        46000
+## 99       J. Henderson              SUB          28500        28500        28500
+## 100         J. Koundé              SUB          57500        57500        57500
+## 101        J. Musiala              SUB          55500        55500        55500
+## 102         J. Sancho              SUB          61500        61500        61500
+## 103        João Félix              SUB          68500        68500        68500
+## 104     João Moutinho              SUB          10500        10500        10500
+## 105        José Fonte              SUB           3800         3800         3800
+## 106        K. Havertz              SUB          84500        84500        84500
+## 107          K. Trapp              SUB          36000        36000        36000
+## 108       K. Trippier              SUB          30500        30500        30500
+## 109       L. Goretzka              SUB          91000        91000        91000
+## 110    L. Klostermann              SUB          23000        23000        23000
+## 111         L. Nmecha              SUB          21500        21500        21500
+## 112     L. Pellegrini              SUB          55000        55000        55000
+## 113      M. Guendouzi              SUB          33000        33000        33000
+## 114           M. Kean              SUB          32000        32000        32000
+## 115      M. Locatelli              SUB          40000        40000        40000
+## 116        M. Maignan              SUB          80000        80000        80000
+## 117           M. Reus              SUB          33500        33500        33500
+## 118     M. ter Stegen              SUB          68500        68500        68500
+## 119   Marcos Llorente              SUB          48000        48000        48000
+## 120     Matheus Nunes              SUB          35000        35000        35000
+## 121           N. Pope              SUB          17000        17000        17000
+## 122  N. Schlotterbeck              SUB          44500        44500        44500
+## 123       Nuno Mendes              SUB          44000        44000        44000
+## 124       P. Kimpembe              SUB          42000        42000        42000
+## 125     Pablo Sarabia              SUB          25000        25000        25000
+## 126          Palhinha              SUB          28500        28500        28500
+## 127        Pau Torres              SUB          50500        50500        50500
+## 128         R. Gosens              SUB          29500        29500        29500
+## 129          R. James              SUB          57000        57000        57000
+## 130       Rafael Leão              SUB          66500        66500        66500
+## 131    Robert Sánchez              SUB          13500        13500        13500
+## 132             Rodri              SUB          88500        88500        88500
+## 133         S. Gnabry              SUB          59000        59000        59000
+## 134         S. Sirigu              SUB           1200         1200         1200
+## 135      Sergio Ramos              SUB           7500         7500         7500
+## 136        T. Abraham              SUB          42000        42000        42000
+## 137      T. Hernández              SUB          76000        76000        76000
+## 138     W. Ben Yedder              SUB          35500        35500        35500
+##     ValueEUR.desv.tip
+## 1                  NA
+## 2                  NA
+## 3                  NA
+## 4                  NA
+## 5                  NA
+## 6                  NA
+## 7                  NA
+## 8                  NA
+## 9                  NA
+## 10                 NA
+## 11                 NA
+## 12                 NA
+## 13                 NA
+## 14                 NA
+## 15                 NA
+## 16                 NA
+## 17                 NA
+## 18                 NA
+## 19                 NA
+## 20                 NA
+## 21                 NA
+## 22                 NA
+## 23                 NA
+## 24                 NA
+## 25                 NA
+## 26                 NA
+## 27                 NA
+## 28                 NA
+## 29                 NA
+## 30                 NA
+## 31                 NA
+## 32                 NA
+## 33                 NA
+## 34                 NA
+## 35                 NA
+## 36                 NA
+## 37                 NA
+## 38                 NA
+## 39                 NA
+## 40                 NA
+## 41                 NA
+## 42                 NA
+## 43                 NA
+## 44                 NA
+## 45                 NA
+## 46                 NA
+## 47                 NA
+## 48                 NA
+## 49                 NA
+## 50                 NA
+## 51                 NA
+## 52                 NA
+## 53                 NA
+## 54                 NA
+## 55                 NA
+## 56                 NA
+## 57                 NA
+## 58                 NA
+## 59                 NA
+## 60                 NA
+## 61                 NA
+## 62                 NA
+## 63                 NA
+## 64                 NA
+## 65                 NA
+## 66                 NA
+## 67                 NA
+## 68                 NA
+## 69                 NA
+## 70                 NA
+## 71                 NA
+## 72                 NA
+## 73                 NA
+## 74                 NA
+## 75                 NA
+## 76                 NA
+## 77                 NA
+## 78                 NA
+## 79                 NA
+## 80                 NA
+## 81                 NA
+## 82                 NA
+## 83                 NA
+## 84                 NA
+## 85                 NA
+## 86                 NA
+## 87                 NA
+## 88                 NA
+## 89                 NA
+## 90                 NA
+## 91                 NA
+## 92                 NA
+## 93                 NA
+## 94                 NA
+## 95                 NA
+## 96                 NA
+## 97                 NA
+## 98                 NA
+## 99                 NA
+## 100                NA
+## 101                NA
+## 102                NA
+## 103                NA
+## 104                NA
+## 105                NA
+## 106                NA
+## 107                NA
+## 108                NA
+## 109                NA
+## 110                NA
+## 111                NA
+## 112                NA
+## 113                NA
+## 114                NA
+## 115                NA
+## 116                NA
+## 117                NA
+## 118                NA
+## 119                NA
+## 120                NA
+## 121                NA
+## 122                NA
+## 123                NA
+## 124                NA
+## 125                NA
+## 126                NA
+## 127                NA
+## 128                NA
+## 129                NA
+## 130                NA
+## 131                NA
+## 132                NA
+## 133                NA
+## 134                NA
+## 135                NA
+## 136                NA
+## 137                NA
+## 138                NA</code></pre>
 </div>
 </div>
 <div id="pregunta-3" class="section level2" number="1.4">

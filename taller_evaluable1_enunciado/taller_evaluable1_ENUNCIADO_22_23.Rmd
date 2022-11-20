@@ -75,6 +75,7 @@ eur
 Generar un data frame con el nombre `fifa23_eur` con los jugadores de estas selecciones.
 
 ### Solución 1
+Estos son los jugadores de las selecciones europeas que han ganado un mundial. Usamos la funcion droplevels para quitar los niveles no usados.
 ```{r}
 fifa23_eur = datos[datos$NationalTeam %in% eur,]
 fifa23_eur$NationalTeam = droplevels(fifa23_eur$NationalTeam)
@@ -93,13 +94,14 @@ Calcular la media y la desviación típica  EN MILES de euros  del valor   de ca
 
 ### Solucion 2
 
-Tabla con la media y la desviación tipica:
+Tabla con la media y la desviación típica:
 ```{r}
 tabla=as.data.frame(aggregate(ValueEUR~NationalTeam, data=fifa23_eur,
                       FUN=function(x){c(media=mean(x,na.rm = TRUE), desv.tip=sd(x,na.rm = TRUE))}))
 tabla
 ```
 
+En la siguiente tabla vemos la media y la desviacion tipica en base a cada jugador  de las selecciones nacionales:
 ```{r}
 tabla2=as.data.frame(aggregate(ValueEUR~NationalTeam+NationalPosition, data=fifa23_eur,
                       FUN=function(x){c(media=mean(x/1000,na.rm = TRUE), 
