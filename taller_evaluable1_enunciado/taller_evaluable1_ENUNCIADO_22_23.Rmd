@@ -175,17 +175,23 @@ Calcular la la tabla de contingencia (frecuencias absolutas) por posición  `Nat
 
 ### Solución 6
 
+Tala de contingencia que muestra el numero de jugadores con X pierna dominante por posición.
 ```{r}
 tabla1 = table(fifa23_eur$NationalPosition,fifa23_eur$foot)
 tabla1
-
-tabla2 = prop.table(tabla1)
-tabla2
-
-tabla3 = prop.table(table(fifa23_eur$foot,fifa23_eur$NationalPosition),margin=1)
-tabla3
 ```
 
+En esta tabla vemos las probabilidades de su pierna dominante por posición.
+```{r}
+tabla2 = prop.table(tabla1)
+tabla2
+```
+
+En esta table vemos las probabilidades de su posición por pierna dominante.
+```{r}
+tabla3 = prop.table(table(fifa23_eur$foot,fifa23_eur$NationalPosition))
+tabla3
+```
 
 ##  Pregunta `r num=num+1;num `
 
@@ -193,10 +199,12 @@ Calcular diagramas de barras adosados para la primera tabla del ejercicio anteri
 
 ### Solución 7
 
+El primer digrama representa el nº de jugadores con pierna dominante por posición. Vemos que la posición SUB destaca sobre las demás en las piernas AMBIDIESTRA y DIESTRA. El segundo es un mosaico que muestra el resultasdo de la tabla de proporciones anterior.
 ```{r}
-barplot(tabla1,beside=TRUE,col=rainbow(18))
+barplot(tabla1,beside=TRUE,col=rainbow(18),main = "Nº de pierna dominante según posición" )
 legend("topleft",col=rainbow(18),legend=c("","CAM","CB","CDM","CM","GK","LB","LF","LM","LW","LWB","RB","RF","RM","RW","RWB","ST","SUB"),lwd=3,bty="1",cex=0.6)
-plot(fifa23_eur$foot,fifa23_eur$NationalPosition)
+plot(fifa23_eur$foot,fifa23_eur$NationalPosition,main = "Mosaico de la tabla de proporciones",col=rainbow(18))
+legend("topleft",col=rainbow(18),legend=c("","CAM","CB","CDM","CM","GK","LB","LF","LM","LW","LWB","RB","RF","RM","RW","RWB","ST","SUB"),lwd=3,bty="1",cex=0.6)
 ```
 
 
@@ -206,8 +214,10 @@ Comparar la distribución del  score `Overall`  con un `boxplot` para las 6 sele
 
 ### Solución 8 
 
+Muestra la distribución de la media de los jugadores por selección. Vemos como por ejemplo, en Francia, la mayoría de sus jugadores rondan entre 82 y 86, pudiendo superar en pocos casos los 90 puntos.
 ```{r}
-boxplot(fifa23_eur$Overall~fifa23_eur$NationalTeam)
+
+boxplot(fifa23_eur$Overall~fifa23_eur$NationalTeam,main="Diagrama de Cajas",col=rainbow(6),xlab = "Selección",ylab = "Media de Jugador")
 ```
 
 
@@ -231,7 +241,7 @@ unique(fifa23_ame$NationalTeam)
 ```
 
 ```{r}
-plot(density(fifa23_eur$Overall),col="red",xlim=c(60,100))
+plot(density(fifa23_eur$Overall),col="red",xlim=c(60,100),main = "Distribución Overall")
 lines(density(fifa23_ame$Overall),col="blue")
 legend("topleft",col=c("red","blue"), legend=c("eur","ame"),lwd=3,bty="l",cex=0.8)
 ```
