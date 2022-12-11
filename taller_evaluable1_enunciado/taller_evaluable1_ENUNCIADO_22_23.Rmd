@@ -235,12 +235,14 @@ ame=c("Argentina","Brazil","Canada","Mexico","Ecuador","United States" )
 Generar un data frame `fifa23_ame`. Comparar la distribución del  score `overall` para TODOS los jugadores de las 6 selecciones de europa  y  TODOS los jugadores de las seis selecciones de América. Dibujando un histograma con la función *kernel* en un solo gráfico. Comentar los resultados.
 
 ### Solución 9
-
+Creamos el data frame para los jugadores de las selecciones americanas.
 ```{r}
 fifa23_ame=datos[datos$NationalTeam %in% ame,]
 fifa23_ame$NationalTeam = droplevels(fifa23_ame$NationalTeam)
 unique(fifa23_ame$NationalTeam)
 ```
+
+Comparamos la distribucion de las valoraciones `overall` de los jugadores.
 
 ```{r}
 plot(density(fifa23_eur$Overall),col="red",xlim=c(60,100),main = "Distribución Overall")
@@ -248,3 +250,4 @@ lines(density(fifa23_ame$Overall),col="blue")
 legend("topleft",col=c("red","blue"), legend=c("eur","ame"),lwd=3,bty="l",cex=0.8)
 ```
 
+Viendo la gráfica podemos determinar que la mayoria de jugadores europeos tienen una valoracion superior los jugadores de selecciones americanas.

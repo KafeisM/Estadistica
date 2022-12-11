@@ -468,7 +468,8 @@ jugadores de estas selecciones.</p>
 <div id="solución-1" class="section level3" number="1.2.1">
 <h3><span class="header-section-number">1.2.1</span> Solución 1</h3>
 <p>Estos son los jugadores de las selecciones europeas que han ganado un
-mundial.</p>
+mundial. Usamos la funcion droplevels para quitar los niveles no
+usados.</p>
 <pre class="r"><code>fifa23_eur = datos[datos$NationalTeam %in% eur,]
 fifa23_eur$NationalTeam = droplevels(fifa23_eur$NationalTeam)
 unique(fifa23_eur$Name)</code></pre>
@@ -533,290 +534,128 @@ tabla</code></pre>
 ## 6        Spain       41956522          24335679</code></pre>
 <p>En la siguiente tabla vemos la media y la desviacion tipica en base a
 cada jugador de las selecciones nacionales:</p>
-<pre class="r"><code>tabla2=as.data.frame(aggregate(ValueEUR~Name+NationalPosition, data=fifa23_eur,
+<pre class="r"><code>tabla2=as.data.frame(aggregate(ValueEUR~NationalTeam+NationalPosition, data=fifa23_eur,
                       FUN=function(x){c(media=mean(x/1000,na.rm = TRUE), 
                                         min=min((x/1000),na.rm=TRUE),
                                         max=max((x/1000),na.rm=TRUE),
                                         desv.tip=sd((x/1000),na.rm = TRUE))}))
 tabla2</code></pre>
-<pre><code>##                  Name NationalPosition ValueEUR.media ValueEUR.min ValueEUR.max
-## 1        A. Griezmann              CAM          30500        30500        30500
-## 2            M. Mount              CAM          57500        57500        57500
-## 3           T. Müller              CAM          63000        63000        63000
-## 4          A. Bastoni               CB          60500        60500        60500
-## 5          A. Laporte               CB          64500        64500        64500
-## 6          A. Rüdiger               CB          73500        73500        73500
-## 7         Eric García               CB          20000        20000        20000
-## 8          H. Maguire               CB          24000        24000        24000
-## 9           J. Stones               CB          34500        34500        34500
-## 10         L. Bonucci               CB          11000        11000        11000
-## 11       L. Hernández               CB          46000        46000        46000
-## 12            N. Süle               CB          59000        59000        59000
-## 13               Pepe               CB           4600         4600         4600
-## 14          R. Varane               CB          39000        39000        39000
-## 15         Rúben Dias               CB         107500       107500       107500
-## 16          W. Saliba               CB          40000        40000        40000
-## 17        İ. Gündoğan              CDM          44000        44000        44000
-## 18         J. Kimmich              CDM         105500       105500       105500
-## 19           N. Kanté              CDM          72000        72000        72000
-## 20           P. Pogba              CDM          52500        52500        52500
-## 21        Rúben Neves              CDM          47500        47500        47500
-## 22    Sergio Busquets              CDM          26500        26500        26500
-## 23     Bernardo Silva               CM          97500        97500        97500
-## 24    Bruno Fernandes               CM          72500        72500        72500
-## 25            D. Rice               CM          52000        52000        52000
-## 26           Jorginho               CM          51500        51500        51500
-## 27        K. Phillips               CM          32000        32000        32000
-## 28               Koke               CM          34500        34500        34500
-## 29        M. Verratti               CM          77500        77500        77500
-## 30         N. Barella               CM          89500        89500        89500
-## 31              Pedri               CM         116000       116000       116000
-## 32      G. Donnarumma               GK         103500       103500       103500
-## 33          H. Lloris               GK           9000         9000         9000
-## 34        J. Pickford               GK          26000        26000        26000
-## 35           M. Neuer               GK          13500        13500        13500
-## 36       Rui Patrício               GK           5000         5000         5000
-## 37         Unai Simón               GK          37000        37000        37000
-## 38        B. Chilwell               LB          37000        37000        37000
-## 39            D. Raum               LB          34500        34500        34500
-## 40         Jordi Alba               LB          28000        28000        28000
-## 41      L. Spinazzola               LB          27000        27000        27000
-## 42       R. Guerreiro               LB          27500        27500        27500
-## 43           L. Digne               LM          27500        27500        27500
-## 44            L. Sané               LM          49500        49500        49500
-## 45         Diogo Jota               LW          76000        76000        76000
-## 46         L. Insigne               LW          35000        35000        35000
-## 47          Oyarzabal               LW          53000        53000        53000
-## 48        R. Sterling               LW          72500        72500        72500
-## 49           Carvajal               RB          36500        36500        36500
-## 50      G. Di Lorenzo               RB          27500        27500        27500
-## 51       João Cancelo               RB          82500        82500        82500
-## 52          K. Walker               RB          37500        37500        37500
-## 53          T. Kehrer               RB           9000         9000         9000
-## 54         J. Hofmann               RM          25500        25500        25500
-## 55           K. Coman               RM          80000        80000        80000
-## 56          F. Chiesa               RW          66500        66500        66500
-## 57      Ferran Torres               RW          49000        49000        49000
-## 58             Otávio               RW          32500        32500        32500
-## 59           P. Foden               RW         109500       109500       109500
-## 60        C. Immobile               ST          55000        55000        55000
-## 61  Cristiano Ronaldo               ST          41000        41000        41000
-## 62            H. Kane               ST         105500       105500       105500
-## 63         K. Benzema               ST          64000        64000        64000
-## 64          K. Mbappé               ST         190500       190500       190500
-## 65             Morata               ST          21000        21000        21000
-## 66          T. Werner               ST          38000        38000        38000
-## 67          A. Areola              SUB          20000        20000        20000
-## 68         A. Belotti              SUB          21500        21500        21500
-## 69        A. Florenzi              SUB          12500        12500        12500
-## 70           A. Lopes              SUB          16000        16000        16000
-## 71           A. Meret              SUB          14500        14500        14500
-## 72          A. Rabiot              SUB          24000        24000        24000
-## 73        A. Ramsdale              SUB          34500        34500        34500
-## 74      A. Tchouaméni              SUB          61500        61500        61500
-## 75        André Silva              SUB          38000        38000        38000
-## 76        Azpilicueta              SUB          20000        20000        20000
-## 77       B. Cristante              SUB          23000        23000        23000
-## 78          B. Pavard              SUB          20000        20000        20000
-## 79            B. Saka              SUB          60500        60500        60500
-## 80           C. Coady              SUB          14500        14500        14500
-## 81       C. Gallagher              SUB          35500        35500        35500
-## 82          C. Nkunku              SUB          94000        94000        94000
-## 83       Carlos Soler              SUB          53000        53000        53000
-## 84         D. Berardi              SUB          45000        45000        45000
-## 85          Dani Olmo              SUB          46000        46000        46000
-## 86     Danilo Pereira              SUB          17500        17500        17500
-## 87             De Gea              SUB          42000        42000        42000
-## 88        Diogo Costa              SUB          30500        30500        30500
-## 89            Emerson              SUB          10000        10000        10000
-## 90          F. Acerbi              SUB          10000        10000        10000
-## 91       G. Raspadori              SUB          36000        36000        36000
-## 92               Gayà              SUB          32000        32000        32000
-## 93      Gerard Moreno              SUB          53000        53000        53000
-## 94     Gonçalo Guedes              SUB          41000        41000        41000
-## 95      J. Bellingham              SUB          81500        81500        81500
-## 96          J. Brandt              SUB          40000        40000        40000
-## 97          J. Clauss              SUB          18500        18500        18500
-## 98        J. Grealish              SUB          46000        46000        46000
-## 99       J. Henderson              SUB          28500        28500        28500
-## 100         J. Koundé              SUB          57500        57500        57500
-## 101        J. Musiala              SUB          55500        55500        55500
-## 102         J. Sancho              SUB          61500        61500        61500
-## 103        João Félix              SUB          68500        68500        68500
-## 104     João Moutinho              SUB          10500        10500        10500
-## 105        José Fonte              SUB           3800         3800         3800
-## 106        K. Havertz              SUB          84500        84500        84500
-## 107          K. Trapp              SUB          36000        36000        36000
-## 108       K. Trippier              SUB          30500        30500        30500
-## 109       L. Goretzka              SUB          91000        91000        91000
-## 110    L. Klostermann              SUB          23000        23000        23000
-## 111         L. Nmecha              SUB          21500        21500        21500
-## 112     L. Pellegrini              SUB          55000        55000        55000
-## 113      M. Guendouzi              SUB          33000        33000        33000
-## 114           M. Kean              SUB          32000        32000        32000
-## 115      M. Locatelli              SUB          40000        40000        40000
-## 116        M. Maignan              SUB          80000        80000        80000
-## 117           M. Reus              SUB          33500        33500        33500
-## 118     M. ter Stegen              SUB          68500        68500        68500
-## 119   Marcos Llorente              SUB          48000        48000        48000
-## 120     Matheus Nunes              SUB          35000        35000        35000
-## 121           N. Pope              SUB          17000        17000        17000
-## 122  N. Schlotterbeck              SUB          44500        44500        44500
-## 123       Nuno Mendes              SUB          44000        44000        44000
-## 124       P. Kimpembe              SUB          42000        42000        42000
-## 125     Pablo Sarabia              SUB          25000        25000        25000
-## 126          Palhinha              SUB          28500        28500        28500
-## 127        Pau Torres              SUB          50500        50500        50500
-## 128         R. Gosens              SUB          29500        29500        29500
-## 129          R. James              SUB          57000        57000        57000
-## 130       Rafael Leão              SUB          66500        66500        66500
-## 131    Robert Sánchez              SUB          13500        13500        13500
-## 132             Rodri              SUB          88500        88500        88500
-## 133         S. Gnabry              SUB          59000        59000        59000
-## 134         S. Sirigu              SUB           1200         1200         1200
-## 135      Sergio Ramos              SUB           7500         7500         7500
-## 136        T. Abraham              SUB          42000        42000        42000
-## 137      T. Hernández              SUB          76000        76000        76000
-## 138     W. Ben Yedder              SUB          35500        35500        35500
-##     ValueEUR.desv.tip
-## 1                  NA
-## 2                  NA
-## 3                  NA
-## 4                  NA
-## 5                  NA
-## 6                  NA
-## 7                  NA
-## 8                  NA
-## 9                  NA
-## 10                 NA
-## 11                 NA
-## 12                 NA
-## 13                 NA
-## 14                 NA
-## 15                 NA
-## 16                 NA
-## 17                 NA
-## 18                 NA
-## 19                 NA
-## 20                 NA
-## 21                 NA
-## 22                 NA
-## 23                 NA
-## 24                 NA
-## 25                 NA
-## 26                 NA
-## 27                 NA
-## 28                 NA
-## 29                 NA
-## 30                 NA
-## 31                 NA
-## 32                 NA
-## 33                 NA
-## 34                 NA
-## 35                 NA
-## 36                 NA
-## 37                 NA
-## 38                 NA
-## 39                 NA
-## 40                 NA
-## 41                 NA
-## 42                 NA
-## 43                 NA
-## 44                 NA
-## 45                 NA
-## 46                 NA
-## 47                 NA
-## 48                 NA
-## 49                 NA
-## 50                 NA
-## 51                 NA
-## 52                 NA
-## 53                 NA
-## 54                 NA
-## 55                 NA
-## 56                 NA
-## 57                 NA
-## 58                 NA
-## 59                 NA
-## 60                 NA
-## 61                 NA
-## 62                 NA
-## 63                 NA
-## 64                 NA
-## 65                 NA
-## 66                 NA
-## 67                 NA
-## 68                 NA
-## 69                 NA
-## 70                 NA
-## 71                 NA
-## 72                 NA
-## 73                 NA
-## 74                 NA
-## 75                 NA
-## 76                 NA
-## 77                 NA
-## 78                 NA
-## 79                 NA
-## 80                 NA
-## 81                 NA
-## 82                 NA
-## 83                 NA
-## 84                 NA
-## 85                 NA
-## 86                 NA
-## 87                 NA
-## 88                 NA
-## 89                 NA
-## 90                 NA
-## 91                 NA
-## 92                 NA
-## 93                 NA
-## 94                 NA
-## 95                 NA
-## 96                 NA
-## 97                 NA
-## 98                 NA
-## 99                 NA
-## 100                NA
-## 101                NA
-## 102                NA
-## 103                NA
-## 104                NA
-## 105                NA
-## 106                NA
-## 107                NA
-## 108                NA
-## 109                NA
-## 110                NA
-## 111                NA
-## 112                NA
-## 113                NA
-## 114                NA
-## 115                NA
-## 116                NA
-## 117                NA
-## 118                NA
-## 119                NA
-## 120                NA
-## 121                NA
-## 122                NA
-## 123                NA
-## 124                NA
-## 125                NA
-## 126                NA
-## 127                NA
-## 128                NA
-## 129                NA
-## 130                NA
-## 131                NA
-## 132                NA
-## 133                NA
-## 134                NA
-## 135                NA
-## 136                NA
-## 137                NA
-## 138                NA</code></pre>
+<pre><code>##    NationalTeam NationalPosition ValueEUR.media ValueEUR.min ValueEUR.max
+## 1       England              CAM      57500.000    57500.000    57500.000
+## 2        France              CAM      30500.000    30500.000    30500.000
+## 3       Germany              CAM      63000.000    63000.000    63000.000
+## 4       England               CB      29250.000    24000.000    34500.000
+## 5        France               CB      41666.667    39000.000    46000.000
+## 6       Germany               CB      66250.000    59000.000    73500.000
+## 7         Italy               CB      35750.000    11000.000    60500.000
+## 8      Portugal               CB      56050.000     4600.000   107500.000
+## 9         Spain               CB      42250.000    20000.000    64500.000
+## 10       France              CDM      62250.000    52500.000    72000.000
+## 11      Germany              CDM      74750.000    44000.000   105500.000
+## 12     Portugal              CDM      47500.000    47500.000    47500.000
+## 13        Spain              CDM      26500.000    26500.000    26500.000
+## 14      England               CM      42000.000    32000.000    52000.000
+## 15        Italy               CM      72833.333    51500.000    89500.000
+## 16     Portugal               CM      85000.000    72500.000    97500.000
+## 17        Spain               CM      75250.000    34500.000   116000.000
+## 18      England               GK      26000.000    26000.000    26000.000
+## 19       France               GK       9000.000     9000.000     9000.000
+## 20      Germany               GK      13500.000    13500.000    13500.000
+## 21        Italy               GK     103500.000   103500.000   103500.000
+## 22     Portugal               GK       5000.000     5000.000     5000.000
+## 23        Spain               GK      37000.000    37000.000    37000.000
+## 24      England               LB      37000.000    37000.000    37000.000
+## 25      Germany               LB      34500.000    34500.000    34500.000
+## 26        Italy               LB      27000.000    27000.000    27000.000
+## 27     Portugal               LB      27500.000    27500.000    27500.000
+## 28        Spain               LB      28000.000    28000.000    28000.000
+## 29       France               LM      27500.000    27500.000    27500.000
+## 30      Germany               LM      49500.000    49500.000    49500.000
+## 31      England               LW      72500.000    72500.000    72500.000
+## 32        Italy               LW      35000.000    35000.000    35000.000
+## 33     Portugal               LW      76000.000    76000.000    76000.000
+## 34        Spain               LW      53000.000    53000.000    53000.000
+## 35      England               RB      37500.000    37500.000    37500.000
+## 36      Germany               RB       9000.000     9000.000     9000.000
+## 37        Italy               RB      27500.000    27500.000    27500.000
+## 38     Portugal               RB      82500.000    82500.000    82500.000
+## 39        Spain               RB      36500.000    36500.000    36500.000
+## 40       France               RM      80000.000    80000.000    80000.000
+## 41      Germany               RM      25500.000    25500.000    25500.000
+## 42      England               RW     109500.000   109500.000   109500.000
+## 43        Italy               RW      66500.000    66500.000    66500.000
+## 44     Portugal               RW      32500.000    32500.000    32500.000
+## 45        Spain               RW      49000.000    49000.000    49000.000
+## 46      England               ST     105500.000   105500.000   105500.000
+## 47       France               ST     127250.000    64000.000   190500.000
+## 48      Germany               ST      38000.000    38000.000    38000.000
+## 49        Italy               ST      55000.000    55000.000    55000.000
+## 50     Portugal               ST      41000.000    41000.000    41000.000
+## 51        Spain               ST      21000.000    21000.000    21000.000
+## 52      England              SUB      42416.667    14500.000    81500.000
+## 53       France              SUB      46833.333    18500.000    94000.000
+## 54      Germany              SUB      48875.000    21500.000    91000.000
+## 55        Italy              SUB      25058.333     1200.000    55000.000
+## 56     Portugal              SUB      33316.667     3800.000    68500.000
+## 57        Spain              SUB      39916.667     7500.000    88500.000
+##    ValueEUR.desv.tip
+## 1                 NA
+## 2                 NA
+## 3                 NA
+## 4           7424.621
+## 5           3785.939
+## 6          10253.048
+## 7          35001.786
+## 8          72761.288
+## 9          31466.252
+## 10         13788.582
+## 11         43487.067
+## 12                NA
+## 13                NA
+## 14         14142.136
+## 15         19425.070
+## 16         17677.670
+## 17         57629.203
+## 18                NA
+## 19                NA
+## 20                NA
+## 21                NA
+## 22                NA
+## 23                NA
+## 24                NA
+## 25                NA
+## 26                NA
+## 27                NA
+## 28                NA
+## 29                NA
+## 30                NA
+## 31                NA
+## 32                NA
+## 33                NA
+## 34                NA
+## 35                NA
+## 36                NA
+## 37                NA
+## 38                NA
+## 39                NA
+## 40                NA
+## 41                NA
+## 42                NA
+## 43                NA
+## 44                NA
+## 45                NA
+## 46                NA
+## 47         89449.008
+## 48                NA
+## 49                NA
+## 50                NA
+## 51                NA
+## 52         19807.980
+## 53         26305.317
+## 54         23099.710
+## 55         16498.345
+## 56         20248.315
+## 57         22057.604</code></pre>
 </div>
 </div>
 <div id="pregunta-3" class="section level2" number="1.4">
@@ -1043,15 +882,22 @@ selecciones de América. Dibujando un histograma con la función
 <em>kernel</em> en un solo gráfico. Comentar los resultados.</p>
 <div id="solución-9" class="section level3" number="1.10.1">
 <h3><span class="header-section-number">1.10.1</span> Solución 9</h3>
+<p>Creamos el data frame para los jugadores de las selecciones
+americanas.</p>
 <pre class="r"><code>fifa23_ame=datos[datos$NationalTeam %in% ame,]
 fifa23_ame$NationalTeam = droplevels(fifa23_ame$NationalTeam)
 unique(fifa23_ame$NationalTeam)</code></pre>
 <pre><code>## [1] Argentina     Canada        Brazil        Mexico        United States
 ## Levels: Argentina Brazil Canada Mexico United States</code></pre>
+<p>Comparamos la distribucion de las valoraciones <code>overall</code>
+de los jugadores.</p>
 <pre class="r"><code>plot(density(fifa23_eur$Overall),col=&quot;red&quot;,xlim=c(60,100),main = &quot;Distribución Overall&quot;)
 lines(density(fifa23_ame$Overall),col=&quot;blue&quot;)
 legend(&quot;topleft&quot;,col=c(&quot;red&quot;,&quot;blue&quot;), legend=c(&quot;eur&quot;,&quot;ame&quot;),lwd=3,bty=&quot;l&quot;,cex=0.8)</code></pre>
 <p><img src="data:image/png;base64,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" width="672" /></p>
+<p>Viendo la gráfica podemos determinar que la mayoria de jugadores
+europeos tienen una valoracion superior los jugadores de selecciones
+americanas.</p>
 </div>
 </div>
 </div>
