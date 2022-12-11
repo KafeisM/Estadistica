@@ -3,18 +3,18 @@ title: "Taller 2 en grupo 1.5 puntos nota final"
 author: "Estadística"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
+  word_document:
+    toc: yes
+    toc_depth: '3'
   pdf_document: 
     includes:
       in_header: header_pagenrs_complet_ver3_problemas.tex
     toc: yes
     toc_depth: '3'
-  word_document:
-    toc: yes
-    toc_depth: '3'
-  html_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 3
 toccolor: blue
 ---
 
@@ -161,19 +161,45 @@ glimpse(data_june)
 
 ## Pregunta 1. **1 punto**
 a.  Calcular una estimación puntual de la media para la variable `price` y el error estándar del estimador.
-b.  Calcular un intervalo de confianza, al nivel de confianza del 95\%, para la variable `price`.
 
+b.  Calcular un intervalo de confianza, al nivel de confianza del 95\%, para la variable `price`.
 
 ## Solución
 
+a)
+```{r}
+media = mean(data_june$price)
+media
+n = length(data_june$price)
+error = sd(data_june$price)/sqrt(n)
+error
+```
+
+b)
+```{r}
+alpha = 1-0.95
+intconf = c(media-qt(1-(alpha/2),df=n-1)*error,media+qt(1-(alpha/2),df=n-1)*error)
+intconf
+
+```
+
 ## Pregunta 2.  **2 puntos**
  
-a. Supongamos que un responsable de Airbnb asegura que  el porcentaje de los valores de `review_scores_rating` mayor o igual 
-  que 4.5  es del 79.5% . Contrastad esta hipótesis con  los datos de Mallorca. 
+ a. Supongamos que un responsable de Airbnb asegura que  el porcentaje de los valores de `review_scores_rating` mayor o igual que 4.5  es del 79.5% . Contrastad esta hipótesis con  los datos de Mallorca. 
 b. Calcular un intervalo de confianza del 95% asociado a este contraste por el método exacto, el de Wilson y el Laplace.
 
 
 ## Solución
+
+a)
+```{r}
+
+```
+
+b)
+```{r}
+
+```
 
 ## Pregunta 3. **2 puntos**
 
@@ -187,6 +213,20 @@ a. Decidid si las varianzas   del precio  en las  dos zonas son iguales o difere
 b. Dad un intervalo de confianza del 95% para  comparar las varianzas. Interpretar adecuadamente el resultado.
 
 ## Solución
+
+a)
+```{r}
+data_june %>%
+  filter(neighbourhood_cleansed=="Palma de Mallorca") %>%
+  select(1)
+##EnvStats:: varTest(palma,conf.level=0.95)$conf.int
+
+```
+
+b)
+```{r}
+
+```
 
 ## Pregunta 4. **2 puntos**
 
