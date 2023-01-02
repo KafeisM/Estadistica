@@ -3,18 +3,18 @@ title: "Taller 2 en grupo 1.5 puntos nota final"
 author: "Estadística"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
+  word_document:
+    toc: yes
+    toc_depth: '3'
   pdf_document: 
     includes:
       in_header: header_pagenrs_complet_ver3_problemas.tex
     toc: yes
     toc_depth: '3'
-  word_document:
-    toc: yes
-    toc_depth: '3'
-  html_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 3
 toccolor: blue
 ---
 
@@ -23,11 +23,10 @@ Nombre del grupo: Grupo NOMBRE
 
 Autores
 
-1. Apellidos, Nombre
-2. Apellidos, Nombre
-3. Apellidos, Nombre
-4. Apellidos, Nombre
-5. Apellidos, Nombre
+1. Florit Ensenyat, Jordi
+2. Girón Rodríguez, Pau 
+3. Fornés Reynés, Josep Gabriel
+4. Ferrer Fernández, Marc
 
 **INSTRUCCIONES**
 
@@ -192,9 +191,16 @@ b. Calcular un intervalo de confianza del 95% asociado a este contraste por el m
 ## Solución
 
 a)
-Queremos contrastar la siguiente hipótesis:
-H0: μ = 4.5
-H1: μ > 4.5
+Queremos contrasrar la siguiente hipótesis:
+
+$$
+\left\{
+\begin{array}{ll}
+H_{0}: &  \mu=4.5\\
+H_{1}: & \mu>4.5
+\end{array}
+\right.
+$$
 ```{r}
 n = length(data_june$review_scores_rating)
 ##n
