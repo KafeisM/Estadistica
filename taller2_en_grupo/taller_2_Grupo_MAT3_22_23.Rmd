@@ -235,6 +235,16 @@ b. Dad un intervalo de confianza del 95% para  comparar las varianzas. Interpret
 ## Solución
 
 a)
+Plantearemos el siguiente contraste:
+
+H0: σ1 = σ2
+H1: σ1 ≠ σ2
+
+```{r}
+var.test(data_june$neighbourhood_cleansed$Pollença,data_june$neighbourhood_cleansed$"Palma de Mallorca")
+
+```
+
 ```{r}
 data_june %>%
   filter(neighbourhood_cleansed=="Palma de Mallorca") %>%
