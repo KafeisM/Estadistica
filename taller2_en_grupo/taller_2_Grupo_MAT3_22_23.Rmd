@@ -19,7 +19,7 @@ toccolor: blue
 ---
 
 
-Nombre del grupo: Grupo NOMBRE
+Nombre del grupo: PMJP
 
 Autores
 
@@ -96,6 +96,9 @@ df<- datos %>% group_by(`race/ethnicity`) %>%
 df
 ```
 
+Primero, elimina todas las filas con valores faltantes usando la función 'drop_na()'. Luego, utiliza la función 'group_by()' y 'summarise()' para calcular la frecuencia de aparición de cada género en el conjunto de datos y crear una nueva columna llamada "porcentaje", que contiene el porcentaje de cada género en relación con el total.
+
+Luego, el código utiliza nuevamente la función 'group_by()' y 'summarise()' para calcular la frecuencia de aparición de cada raza/etnia en el conjunto de datos y ordena los resultados en orden descendente por frecuencia de aparición usando la función 'arrange()'. Finalmente, el código imprime el resultado final en pantalla utilizando la función df.
 
 b.  Da el código de ggplot2 que genera este gráfico. Comenta los resultados
 
@@ -103,6 +106,29 @@ b.  Da el código de ggplot2 que genera este gráfico. Comenta los resultados
 ```{r plot1, echo=FALSE,out.width="60%" , fig.align="center"}
 knitr::include_graphics("plot1.png")
 ```
+
+
+```{r}
+
+# Contar cuántas observaciones hay para cada valor de la variable "lunch"
+frecuencias <- table(datos$lunch)
+
+# Ver el resultado
+frecuencias
+
+# Crear un gráfico vacío
+grafico <- ggplot()
+
+# Especificar que se trata de un gráfico de barras
+grafico <- grafico + geom_bar(aes(x = factor(1)))
+
+# Especificar las variables a utilizar en el gráfico
+grafico <- grafico + aes(x = lunch, y = frecuencias)
+
+grafico
+
+```
+
 
 
 ## Cuestión 2. **1 punto**
@@ -120,6 +146,8 @@ df2<- datos %>%
 ```{r plot2, echo=FALSE, out.width="60%" , fig.align="center"}
 knitr::include_graphics("plot2.png")
 ```
+
+La tibble df2 se obtiene a partir del conjunto de datos original "datos" y contiene tres columnas: "area", 'test preparation course' y "notas". La columna "area" contiene el nombre de cada área evaluada (por ejemplo, "math score"), mientras que la columna test preparation course indica si el estudiante tomó o no un curso de preparación para el examen. La columna "notas" contiene las calificaciones obtenidas por cada estudiante en cada área evaluada.
 
 
 ## Cuestión 3. **1 punto** 
@@ -243,26 +271,49 @@ b. Dad un intervalo de confianza del 95% para  comparar las varianzas. Interpret
 a)
 Plantearemos el siguiente contraste:
 
-H0: σ1 = σ2
-H1: σ1 ≠ σ2
+$$
+\left\{
+\begin{array}{ll}
+H_{0}: &  \sigma_1=sigma_2\\
+H_{1}: & \sigma_1\ne sigma_2
+\end{array}
+\right.
+$$
 
 ```{r}
-var.test(data_june$neighbourhood_cleansed$Pollença,data_june$neighbourhood_cleansed$"Palma de Mallorca")
+# Seleccionar solo los datos de las dos zonas de interés
+palma <- data_june[data_june$neighbourhood_cleansed == "Palma de Mallorca",]
+pollença <- data_june[data_june$neighbourhood_cleansed == "Pollença",]
+
+# Realizar la prueba de igualdad de varianzas
+resultado <- var.test(palma$price, pollença$price)
+
+# Imprimir el resultado
+resultado
 
 ```
 
-```{r}
-data_june %>%
-  filter(neighbourhood_cleansed=="Palma de Mallorca") %>%
-  select(1)
-##EnvStats:: varTest(palma,conf.level=0.95)$conf.int
+El resultado de la prueba se imprimirá en pantalla y contendrá el valor del estadístico de prueba, el p-valor y la conclusión de la prueba. Si el p-valor es menor que el nivel de significación (por ejemplo, 0.05), se puede concluir que hay evidencia suficiente para rechazar la hipótesis nula de igualdad de varianzas y, por tanto, que las variaciones del precio entre las dos zonas son distintas. Si el p-valor es mayor que el nivel de significación, se puede concluir que no hay evidencia suficiente para rechazar la hipótesis nula y, por tanto, que las variaciones del precio entre las dos zonas son iguales.
 
-```
+Es importante tener en cuenta que la prueba de igualdad de varianzas asume que las dos muestras se han extraído de poblaciones normales. Si esto no es cierto, es posible que los resultados de la prueba no sean válidos. En este caso, sería necesario utilizar una prueba alternativa que no haga esta suposición.
+
 
 b)
-```{r}
 
+```{r}
+# Seleccionar solo los datos de las dos zonas de interés
+palma <- data_june[data_june$neighbourhood_cleansed == "Palma de Mallorca",]
+pollença <- data_june[data_june$neighbourhood_cleansed == "Pollença",]
+
+# Realizar la prueba de igualdad de varianzas
+resultado <- var.test(palma$price, pollença$price)
+
+# Imprimir el resultado
+resultado$conf.int
 ```
+
+El intervalo de confianza para el parámetro poblacional del contraste. Es equivalente afirmar que el estadístico de contraste pertenece a la región de aceptación que afirmar que el parámetro del contraste pertenece al intervalo de confianza del contraste.
+No podemos afirmar nada, ya que no tenemos el parámetro poblacional
 
 ## Pregunta 4. **2 puntos**
 
@@ -272,3 +323,37 @@ b. Calcular un intervalo de confianza del 95% para la diferencia de precios.
 
 ## Solución
 
+$$
+\left\{
+\begin{array}{ll}
+H_{0}: &  \mu_0=\mu_1\\
+H_{1}: & \mu_0\ne \mu_1
+\end{array}
+\right.
+$$
+
+a)
+```{r}
+# Seleccionar solo los datos de las dos zonas de interés
+palma <- data_june[data_june$neighbourhood_cleansed == "Palma de Mallorca",]
+pollença <- data_june[data_june$neighbourhood_cleansed == "Pollença",]
+
+# Realizar la prueba de igualdad de varianzas
+resultado <- t.test(palma$price, pollença$price, alternative="two.sided",var.equal = FALSE)
+
+# Imprimir el resultado
+resultado
+```
+
+b)
+```{r}
+# Seleccionar solo los datos de las dos zonas de interés
+palma <- data_june[data_june$neighbourhood_cleansed == "Palma de Mallorca",]
+pollença <- data_june[data_june$neighbourhood_cleansed == "Pollença",]
+
+# Realizar la prueba de igualdad de varianzas
+resultado <- t.test(palma$price, pollença$price, alternative="two.sided",var.equal = FALSE)
+
+# Imprimir el resultado
+resultado$conf.int
+```
