@@ -3,18 +3,18 @@ title: "Taller 2 en grupo 1.5 puntos nota final"
 author: "Estadística"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  html_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 3
-  word_document:
-    toc: yes
-    toc_depth: '3'
   pdf_document: 
     includes:
       in_header: header_pagenrs_complet_ver3_problemas.tex
     toc: yes
     toc_depth: '3'
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
 toccolor: blue
 ---
 
@@ -192,13 +192,33 @@ b. Calcular un intervalo de confianza del 95% asociado a este contraste por el m
 ## Solución
 
 a)
+Queremos contrastar la siguiente hipótesis:
+H0: μ = 4.5
+H1: μ > 4.5
 ```{r}
+n = length(data_june$review_scores_rating)
+##n
+media = mean(data_june$review_scores_rating)
+##media
+t.test(data_june$review_scores_rating, mu=4.5, alternative="greater", conf.level=0.95)
 
 ```
 
 b)
-```{r}
 
+Método exacto:
+```{r}
+epitools::binom.exact(table(data_june$review_scores_rating>4.5)["TRUE"],length(data_june$review_scores_rating),conf.level = 0.95)
+```
+
+Método Wilson:
+```{r}
+epitools::binom.wilson(table(data_june$review_scores_rating>4.5)["TRUE"],length(data_june$review_scores_rating),conf.level = 0.95)
+```
+
+Método Laplace:
+```{r}
+epitools::binom.approx(table(data_june$review_scores_rating>4.5)["TRUE"],length(data_june$review_scores_rating), conf.level = 0.95)
 ```
 
 ## Pregunta 3. **2 puntos**
