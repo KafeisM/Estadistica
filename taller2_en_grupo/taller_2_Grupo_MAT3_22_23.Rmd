@@ -107,27 +107,24 @@ b.  Da el código de ggplot2 que genera este gráfico. Comenta los resultados
 knitr::include_graphics("plot1.png")
 ```
 
-
 ```{r}
-
-# Contar cuántas observaciones hay para cada valor de la variable "lunch"
-frecuencias <- table(datos$lunch)
-
-# Ver el resultado
-frecuencias
-
-# Crear un gráfico vacío
-grafico <- ggplot()
-
-# Especificar que se trata de un gráfico de barras
-grafico <- grafico + geom_bar(aes(x = factor(1)))
-
-# Especificar las variables a utilizar en el gráfico
-grafico <- grafico + aes(x = lunch, y = frecuencias)
-
-grafico
+library(ggplot2)
+datos %>% ggplot() +
+geom_bar(aes(x = factor(`parental level of education`, levels = c("some high school", "high school", "some college", 
+                                                                  "associate's degree", "bachelor's degree", "master's degree")), 
+             fill=lunch),
+position="dodge") + coord_flip() +
+guides(fill = guide_legend(title = "Lunch")) +
+labs(x="", y="Frecuencia absoluta") +
+theme_gray() +
+theme(axis.text = element_text(size=15),
+axis.title = element_text(size=15),
+legend.title = element_text(size=15))
 
 ```
+
+
+El gráfico muestra que, dependiendo del grado de estudio de los padres, que precio pagan en la comida.
 
 
 
@@ -142,13 +139,24 @@ df2<- datos %>%
     names_to="area", values_to="notas") %>%
   select("area", `test preparation course`, "notas")
 ```
+La tibble df2 se obtiene a partir del conjunto de datos original "datos" y contiene tres columnas: "area", 'test preparation course' y "notas". La columna "area" contiene el nombre de cada área evaluada (por ejemplo, "math score"), mientras que la columna test preparation course indica si el estudiante tomó o no un curso de preparación para el examen. La columna "notas" contiene las calificaciones obtenidas por cada estudiante en cada área evaluada.
 
 ```{r plot2, echo=FALSE, out.width="60%" , fig.align="center"}
 knitr::include_graphics("plot2.png")
 ```
 
-La tibble df2 se obtiene a partir del conjunto de datos original "datos" y contiene tres columnas: "area", 'test preparation course' y "notas". La columna "area" contiene el nombre de cada área evaluada (por ejemplo, "math score"), mientras que la columna test preparation course indica si el estudiante tomó o no un curso de preparación para el examen. La columna "notas" contiene las calificaciones obtenidas por cada estudiante en cada área evaluada.
+```{r}
+library(tidyverse)
+df2 %>%
+  ggplot(aes(x = area, y = notas, fill=`test preparation course`), position="dodge") +
+  geom_boxplot() +
+  labs(x = "Área", y = "Notas") +
+  theme(plot.title = element_text(hjust = 0.5))
 
+```
+
+
+El gráfico compara las notas en cada área (matemáticas, lectura y escritura), dependiendo de si se ha hecho o no el curso preparatorio.
 
 ## Cuestión 3. **1 punto** 
 
@@ -157,6 +165,14 @@ Genera el  gráfico (con `ggplot2`) e INTERPRETA  el siguiente gráfico
 ```{r plot3,warning=FALSE, message=FALSE, out.width="60%", fig.align="center", echo=FALSE}
 knitr::include_graphics("plot3.png")
 ```
+
+```{r}
+library(GGally)
+ggpairs(datos,columns = 6:8,aes(color = gender,alpha = 0.5))   
+```
+
+
+En el gráfico se compara las notas de las distintas areas dependiendo de el género del estudiante.
 
 
 # Parte 2. Estadística Inferencial 
