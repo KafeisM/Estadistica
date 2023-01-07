@@ -3,18 +3,18 @@ title: "Taller 2 en grupo 1.5 puntos nota final"
 author: "Estadística"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
-  html_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 3
-  word_document:
-    toc: yes
-    toc_depth: '3'
   pdf_document: 
     includes:
       in_header: header_pagenrs_complet_ver3_problemas.tex
     toc: yes
     toc_depth: '3'
+  word_document:
+    toc: yes
+    toc_depth: '3'
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
 toccolor: blue
 ---
 
@@ -240,7 +240,7 @@ b. Calcular un intervalo de confianza del 95% asociado a este contraste por el m
 ### Solución
 
 a)
-Queremos contrasrar la siguiente hipótesis:
+Queremos contrastar la siguiente hipótesis:
 
 $$
 \left\{
@@ -250,6 +250,7 @@ H_{1}: & \mu>4.5
 \end{array}
 \right.
 $$
+Dentro de nuestros datos, comprobamos si la variable 'review_scores_rating' cumple con los parámetros asegurados por el responsable mediante el t.test.
 ```{r}
 n = length(data_june$review_scores_rating)
 ##n
@@ -259,7 +260,7 @@ t.test(data_june$review_scores_rating, mu=4.5, alternative="greater", conf.level
 
 ```
 
-b)
+b) En este apartado realizamos el cálculo del intérvalo solicitado mediante los tres métodos. Cada uno se realiza con una llamada a una función diferente de epitools.
 
 Método exacto:
 ```{r}
@@ -367,7 +368,7 @@ resultado <- t.test(palma$price, pollença$price, alternative="two.sided",var.eq
 resultado
 ```
 
-b)
+b) Para poder calcular el intérvalo de confianza solicitado debemos seleccionar los datos de Palma de Mallorca y de Pollença. Mediante el t.test realizamos el test de igualdad de varianzas y imprimiremos el resultado por pantalla
 ```{r}
 # Seleccionar solo los datos de las dos zonas de interés
 palma <- data_june[data_june$neighbourhood_cleansed == "Palma de Mallorca",]
