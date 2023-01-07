@@ -124,7 +124,7 @@ legend.title = element_text(size=15))
 ```
 
 
-El gráfico muestra que, dependiendo del grado de estudio de los padres, que precio pagan en la comida.
+El gráfico muestra que, dependiendo del grado de estudio de los padres, que precio pagan en la comida. La cantidad de precio se separa entre los que tienen precio reducido o gratuito, y precio estándar. esta diferencia se muestra con colores distintos, vistos en la leyenda.
 
 
 
@@ -156,7 +156,7 @@ df2 %>%
 ```
 
 
-El gráfico compara las notas en cada área (matemáticas, lectura y escritura), dependiendo de si se ha hecho o no el curso preparatorio.
+El gráfico compara las notas en cada área (matemáticas, lectura y escritura), dependiendo de si se ha hecho o no el curso preparatorio. Como se observa en la leyenda, un color identifica a las personas que tienen el curso completado, y otro color, a los que no. Del gráfico se puede interpretar que los usuarios que tienen el curso completado tienen un intérvalo de notas mayor que los otros.
 
 ## Cuestión 3. **1 punto** 
 
@@ -172,7 +172,7 @@ ggpairs(datos,columns = 6:8,aes(color = gender,alpha = 0.5))
 ```
 
 
-En el gráfico se compara las notas de las distintas areas dependiendo de el género del estudiante.
+En el gráfico se compara las notas de las distintas areas (matemáticas, lectura y escritura) dependiendo de el género del estudiante. Viendo los gráficos, podemos interpretar que las notas de los hombres se concentran más alrededor de una nota, en cambio las mujeres, presentan una leve mayor dispersion.
 
 
 # Parte 2. Estadística Inferencial 
