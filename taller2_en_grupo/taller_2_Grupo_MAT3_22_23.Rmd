@@ -207,20 +207,25 @@ a.  Calcular una estimación puntual de la media para la variable `price` y el e
 
 b.  Calcular un intervalo de confianza, al nivel de confianza del 95\%, para la variable `price`.
 
-## Solución
+### Solución
 
-a)
+a) En este apartado mostramos la media muestral y el error estándar para la variable `price`.
 ```{r}
+#media
 media = mean(data_june$price)
 media
+#buscamos el tamaño muestral
 n = length(data_june$price)
+#error estándar
 error = sd(data_june$price)/sqrt(n)
 error
 ```
 
-b)
+b) Calculamos para la variable `price` un intérvalo de confianza con un nivel de confianza del 95%
 ```{r}
+#sacamos alpha con el nivel de confianza
 alpha = 1-0.95
+#conociendo alpha podemos calcular el intérvalo
 intconf = c(media-qt(1-(alpha/2),df=n-1)*error,media+qt(1-(alpha/2),df=n-1)*error)
 intconf
 
@@ -232,7 +237,7 @@ intconf
 b. Calcular un intervalo de confianza del 95% asociado a este contraste por el método exacto, el de Wilson y el Laplace.
 
 
-## Solución
+### Solución
 
 a)
 Queremos contrasrar la siguiente hipótesis:
@@ -282,7 +287,7 @@ sort(table(data_june$neighbourhood_cleansed),decreasing = TRUE)[1:4]
 a. Decidid si las varianzas   del precio  en las  dos zonas son iguales o diferentes. Considera que las distribuciones de los valores de precio en las poblaciones son normales.
 b. Dad un intervalo de confianza del 95% para  comparar las varianzas. Interpretar adecuadamente el resultado.
 
-## Solución
+### Solución
 
 a)
 Plantearemos el siguiente contraste:
@@ -337,8 +342,9 @@ a. A partir de los resultados del apartado anterior contrastad la hipótesis de 
 b. Calcular un intervalo de confianza del 95% para la diferencia de precios.
 
 
-## Solución
+### Solución
 
+Planteamos el siguiente contraste para la resolución del problema:
 $$
 \left\{
 \begin{array}{ll}
@@ -348,7 +354,7 @@ H_{1}: & \mu_0\ne \mu_1
 \right.
 $$
 
-a)
+a) Para poder contrastar tansolo los precios medios de Palma de Mallorca y Pollença deberemos guardar estos datos en variables distintas. Finalmente, para realizar el contraste usaremos la función t.test.
 ```{r}
 # Seleccionar solo los datos de las dos zonas de interés
 palma <- data_june[data_june$neighbourhood_cleansed == "Palma de Mallorca",]
