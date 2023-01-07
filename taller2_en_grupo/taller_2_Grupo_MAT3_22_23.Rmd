@@ -290,8 +290,8 @@ Plantearemos el siguiente contraste:
 $$
 \left\{
 \begin{array}{ll}
-H_{0}: &  \sigma_1=sigma_2\\
-H_{1}: & \sigma_1\ne sigma_2
+H_{0}: &  \sigma_1=\sigma_2\\
+H_{1}: & \sigma_1\ne \sigma_2
 \end{array}
 \right.
 $$
