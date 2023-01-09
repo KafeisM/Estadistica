@@ -3,18 +3,18 @@ title: "Taller 2 en grupo 1.5 puntos nota final"
 author: "Estadística"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
+  html_document:
+    number_sections: yes
+    toc: yes
+    toc_depth: 3
+  word_document:
+    toc: yes
+    toc_depth: '3'
   pdf_document: 
     includes:
       in_header: header_pagenrs_complet_ver3_problemas.tex
     toc: yes
     toc_depth: '3'
-  word_document:
-    toc: yes
-    toc_depth: '3'
-  html_document:
-    number_sections: yes
-    toc: yes
-    toc_depth: 3
 toccolor: blue
 ---
 
@@ -260,6 +260,8 @@ t.test(data_june$review_scores_rating, mu=4.5, alternative="greater", conf.level
 
 ```
 
+Dado los resultados del test podemos ver que el p-valor es muy pequeño por lo tanto RECHAZAMOS la hipotesis nula de que $$\mu=4.5 $$
+
 b) En este apartado realizamos el cálculo del intérvalo solicitado mediante los tres métodos. Cada uno se realiza con una llamada a una función diferente de epitools.
 
 Método exacto:
@@ -315,12 +317,10 @@ resultado
 
 ```
 
-El resultado de la prueba se imprimirá en pantalla y contendrá el valor del estadístico de prueba, el p-valor y la conclusión de la prueba. Si el p-valor es menor que el nivel de significación (por ejemplo, 0.05), se puede concluir que hay evidencia suficiente para rechazar la hipótesis nula de igualdad de varianzas y, por tanto, que las variaciones del precio entre las dos zonas son distintas. Si el p-valor es mayor que el nivel de significación, se puede concluir que no hay evidencia suficiente para rechazar la hipótesis nula y, por tanto, que las variaciones del precio entre las dos zonas son iguales.
-
-Es importante tener en cuenta que la prueba de igualdad de varianzas asume que las dos muestras se han extraído de poblaciones normales. Si esto no es cierto, es posible que los resultados de la prueba no sean válidos. En este caso, sería necesario utilizar una prueba alternativa que no haga esta suposición.
+Dado el resultado del test podemos observar que el p-valor es muy pequeño por lo tanto rechazamos la hipótesis nula de que las varianzas son iguales.
 
 
-b)
+b)Intervalo de confianza del 95% para comparar las varianzas
 
 ```{r}
 # Seleccionar solo los datos de las dos zonas de interés
@@ -334,8 +334,7 @@ resultado <- var.test(palma$price, pollença$price)
 resultado$conf.int
 ```
 
-El intervalo de confianza para el parámetro poblacional del contraste. Es equivalente afirmar que el estadístico de contraste pertenece a la región de aceptación que afirmar que el parámetro del contraste pertenece al intervalo de confianza del contraste.
-No podemos afirmar nada, ya que no tenemos el parámetro poblacional
+El intervalo de confianza se proporciona como un vector de dos elementos, que representan los límites inferior y superior del intervalo de confianza, respectivamente. Si el intervalo de confianza incluye el valor cero, entonces se puede concluir que no hay evidencia de diferencia significativa entre las varianzas de los dos grupos. Si el intervalo de confianza no incluye el valor cero, entonces se puede concluir que hay evidencia de diferencia significativa entre las varianzas de los dos grupos. En este caso como no incluye el cero podemos afirmar que las varianzas son distintas.
 
 ## Pregunta 4. **2 puntos**
 
@@ -367,6 +366,8 @@ resultado <- t.test(palma$price, pollença$price, alternative="two.sided",var.eq
 # Imprimir el resultado
 resultado
 ```
+
+Como el p-valor es muy pequeño podemos rechazar la hipótesis nula, por lo tanto las medias seran iguales.
 
 b) Para poder calcular el intérvalo de confianza solicitado debemos seleccionar los datos de Palma de Mallorca y de Pollença. Mediante el t.test realizamos el test de igualdad de varianzas y imprimiremos el resultado por pantalla
 ```{r}
